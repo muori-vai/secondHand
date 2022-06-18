@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Prodotto</title>
+</head>
+
+<body>
+	<div th:if="${prodotto}">
+		<div th:text="${prodotto.nome}">
+		</div>
+		<div th:text="${prodotto.descrizione}">
+		</div>
+		<img th:src="@{${prodotto.fotoImagePath}}" />
+	</div>
+	<div th:unless="${prodotto}">
+	</div>
+</body>
+
+</html>

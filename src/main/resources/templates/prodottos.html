@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Prodotto</title>
+</head>
+
+<body>
+	<div th:each="prodotto: ${prodottos}">
+		<div th:text="${prodotto.nome}">
+		</div>
+		<a href="chef.html" th:href="@{'/prodotto/'+${prodotto.id}}" th:text="dettagli">
+		</a>
+	</div>
+</body>
+
+</html>

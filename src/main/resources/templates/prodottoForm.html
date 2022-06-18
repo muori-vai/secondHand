@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Prodotto</title>
+</head>
+
+<body>
+	<form th:action="@{/prodotto}" method="POST" th:object="${prodotto}" enctype="multipart/form-data">
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+		</div>
+		<div>
+			Nome: <input type="text" th:field="*{nome}" />
+			<div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">
+			</div>
+		</div>
+		<div>
+			Descrizione: <input type="text" th:field="*{descrizione}" />
+			<div th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}">
+			</div>
+		</div>
+		<label>Foto: </label>
+		<input type="file" name="image" accept="image/png, image/jpeg" />
+		<div>
+			<button type="submit">Conferma</button>
+		</div>
+	</form>
+</body>
+
+</html>
