@@ -37,4 +37,12 @@ public class Luogo {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	public List<Prodotto> getProdottos() {
+		return prodottos;
+	}
+
+	public void setProdottos(List<Prodotto> prodottos) {
+		this.prodottos = prodottos;
+	}
 }

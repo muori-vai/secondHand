@@ -26,20 +26,25 @@
 
 		<fieldset>
 			<legend>Seleziona Categoria</legend>
-
 			<div th:each="categoria: ${categorias}">
 				<input type="radio" id="${categorias}" th:field="*{categoria}" name="categoria"
 					th:value="${categoria.id}" />
 				<label for="${categorias}" th:text="${categoria.nome}">nome categoria</label>
 			</div>
-			
+		</fieldset>
+		<fieldset>
+			<legend>Seleziona Luogo</legend>
+			<div th:each="luogo: ${luogos}">
+				<input type="radio" id="${luogos}" th:field="*{luogo}" name="luogo" th:value="${luogo.id}" />
+				<label for="${luogos}" th:text="${luogo.nome}">nome luogo</label>
+			</div>
 		</fieldset>
 
 		<div>
 			<button type="submit">Conferma</button>
 		</div>
 	</form>
-	
+
 	<a href="index.html" th:href="@{/}">Torna indietro
 	</a>
 </body>
