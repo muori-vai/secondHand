@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -20,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.siw.secondHand.controller.validator.ProdottoValidator;
 import com.siw.secondHand.model.Prodotto;
+import com.siw.secondHand.service.CategoriaService;
 import com.siw.secondHand.service.ProdottoService;
 
 @Controller
@@ -29,6 +29,9 @@ public class ProdottoController {
 	private ProdottoService prodottoService;
 
 	@Autowired
+	private CategoriaService categoriaService;
+
+	@Autowired
 	private ProdottoValidator prodottoValidator;
 
 	@PostMapping("/prodotto")
@@ -36,23 +39,29 @@ public class ProdottoController {
 			Model model, @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
 		prodottoValidator.validate(prodotto, bindingResult);
-		
+
 		if (!bindingResult.hasErrors()) {
-			
-			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-			
-			fileName = fileName.replaceAll("\\s+", ""); //per levare gli spazi
-			
-			prodotto.setFoto(fileName);
 
-			Prodotto prodottoSalvato = prodottoService.save(prodotto);
+			String fileName = null;
 
-			String uploadDir = "prodotto-foto/" + prodottoSalvato.getId();
+			if (!multipartFile.isEmpty()) {
+				fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
-			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+				fileName = fileName.replaceAll("\\s+", ""); // per levare gli spazi dal nome dell'immagine, sennò non funziona
 
-			model.addAttribute("prodotto", prodotto);
+				prodotto.setFoto(fileName);
+			}
+
+			Prodotto prodottoSalvato = prodottoService.save(prodotto); // questo save è diverso dal save del progetto Catering
+
+			if (!multipartFile.isEmpty()) {
+				String uploadDir = "prodotto-foto/" + prodottoSalvato.getId();
+				
+				FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+			}
 			
+			model.addAttribute("prodotto", prodottoSalvato);
+
 			return "prodotto.html";
 		}
 
@@ -94,7 +103,7 @@ public class ProdottoController {
 	@GetMapping("/prodottoForm")
 	public String getProdottoForm(Model model) {
 		model.addAttribute("prodotto", new Prodotto());
-
+		model.addAttribute("categorias", this.categoriaService.findAll());
 		return "prodottoForm.html";
 	}
 
@@ -105,7 +114,6 @@ public class ProdottoController {
 		return "deleteProdotto.html";
 	}
 
-	@Transactional
 	@GetMapping("/confirmDeleteProdotto/{id}")
 	public String confirmDeleteProdotto(@PathVariable("id") Long id,
 			/* @RequestParam(value="action", required=true) String action, */ Model model) {

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Sottocategorie</title>
+</head>
+
+<body>
+	<div th:each="sottocategoria: ${sottocategorias}">
+		<div th:text="${sottocategoria.nome}">
+		</div>
+		<a href="sottocategoria.html" th:href="@{'/sottocategoria/'+${sottocategoria.id}}" th:text="dettagli">
+		</a>
+	</div>
+	
+	<a href="index.html" th:href="@{/}">Torna indietro
+	</a>
+</body>
+
+</html>

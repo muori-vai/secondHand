@@ -3,11 +3,11 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<title>Prodotto</title>
+	<title>Sottocategoria</title>
 </head>
 
 <body>
-	<form th:action="@{/prodotto}" method="POST" th:object="${prodotto}" enctype="multipart/form-data">
+	<form th:action="@{/sottocategoria}" method="POST" th:object="${sottocategoria}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
 		</div>
@@ -21,25 +21,22 @@
 			<div th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}">
 			</div>
 		</div>
-		<label>Foto: </label>
-		<input type="file" name="image" accept="image/png, image/jpeg" />
 
 		<fieldset>
 			<legend>Seleziona Categoria</legend>
-
 			<div th:each="categoria: ${categorias}">
+				<!-- type="radio": una sola scelta; type="checkbox": più scelte-->
 				<input type="radio" id="${categorias}" th:field="*{categoria}" name="categoria"
 					th:value="${categoria.id}" />
 				<label for="${categorias}" th:text="${categoria.nome}">nome categoria</label>
 			</div>
-			
 		</fieldset>
 
 		<div>
 			<button type="submit">Conferma</button>
 		</div>
 	</form>
-	
+
 	<a href="index.html" th:href="@{/}">Torna indietro
 	</a>
 </body>

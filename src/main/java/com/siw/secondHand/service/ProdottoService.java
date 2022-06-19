@@ -19,7 +19,7 @@ public class ProdottoService {
 
 	@Transactional
 	public Prodotto save(Prodotto prodotto) {
-		return prodottoRepository.save(prodotto);
+		return prodottoRepository.save(prodotto); //dopo aver salvato, ritorna il prodotto salvato
 	}
 	
 	@Transactional
@@ -39,8 +39,8 @@ public class ProdottoService {
 	public List<Prodotto> findAll() {
 		List<Prodotto> prodottos = new ArrayList<Prodotto>();
 		
-		for(Prodotto c: prodottoRepository.findAll()) {
-			prodottos.add(c);
+		for(Prodotto p: prodottoRepository.findAll()) {
+			prodottos.add(p);
 		}
 		
 		return prodottos;

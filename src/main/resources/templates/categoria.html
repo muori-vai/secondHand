@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Categoria</title>
+</head>
+
+<body>
+	<div th:if="${categoria}">
+		<div th:text="${categoria.nome}">
+		</div>
+		<div th:text="${categoria.descrizione}">
+		</div>
+
+		<div>
+			Prodotti di questa categoria:
+		</div>
+		<br>
+
+		<div th:each="prodotto: ${categoria.prodottos}">
+			<div th:text="${prodotto.nome}">
+			</div>
+		</div>
+	</div>
+
+	<div th:unless="${categoria}">
+		Questa Categoria non esiste!
+	</div>
+
+	<a href="index.html" th:href="@{/}">Torna indietro
+	</a>
+</body>
+
+</html>

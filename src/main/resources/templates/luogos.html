@@ -3,17 +3,17 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<title>Prodotti</title>
+	<title>Luoghi</title>
 </head>
 
 <body>
-	<div th:each="prodotto: ${prodottos}">
-		<div th:text="${prodotto.nome}">
+	<div th:each="luogo: ${luogos}">
+		<div th:text="${luogo.nome}">
 		</div>
-		<a href="prodotto.html" th:href="@{'/prodotto/'+${prodotto.id}}" th:text="dettagli">
+		<a href="luogo.html" th:href="@{'/luogo/'+${luogo.id}}" th:text="dettagli">
 		</a>
 	</div>
-	
+
 	<a href="index.html" th:href="@{/}">Torna indietro
 	</a>
 </body>

@@ -3,14 +3,14 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<title>Prodotti</title>
+	<title>Categorie</title>
 </head>
 
 <body>
-	<div th:each="prodotto: ${prodottos}">
-		<div th:text="${prodotto.nome}">
+	<div th:each="categoria: ${categorias}">
+		<div th:text="${categoria.nome}">
 		</div>
-		<a href="prodotto.html" th:href="@{'/prodotto/'+${prodotto.id}}" th:text="dettagli">
+		<a href="categoria.html" th:href="@{'/categoria/'+${categoria.id}}" th:text="dettagli">
 		</a>
 	</div>
 	

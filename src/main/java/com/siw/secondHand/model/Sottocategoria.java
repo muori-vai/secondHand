@@ -1,40 +1,34 @@
 package com.siw.secondHand.model;
 
-import javax.persistence.Column;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-public class Prodotto {
+public class Sottocategoria {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
+	
 	@NotBlank
 	private String nome;
 	@NotBlank
 	private String descrizione;
-
-	@ManyToOne//(cascade = { CascadeType.ALL })
+	
+	@OneToMany(mappedBy="sottocategoria")
+	private List<Prodotto> prodottos;
+	
+	@ManyToOne
 	@JoinColumn(name="categoria_id", nullable=false)
 	private Categoria categoria;
-	
-	@ManyToOne
-	@JoinColumn(name="sottocategoria_id", nullable=false)
-	private Sottocategoria sottocategoria;
-	
-	@ManyToOne
-	@JoinColumn(name="luogo_id", nullable=false)
-	private Luogo luogo;
-
-	@Column(nullable = true, length = 64)
-	private String foto;
 
 	public Long getId() {
 		return id;
@@ -60,20 +54,12 @@ public class Prodotto {
 		this.descrizione = descrizione;
 	}
 
-	public String getFoto() {
-		return foto;
+	public List<Prodotto> getProdottos() {
+		return prodottos;
 	}
 
-	public void setFoto(String foto) {
-		this.foto = foto;
-	}
-
-	public String getFotoImagePath() {
-		if (foto == null || id == null)
-			return null;
-		//si potrebbe fare un return "/generic-foto/prodotto" 
-		
-		return "/prodotto-foto/" + id + "/" + foto;
+	public void setProdottos(List<Prodotto> prodottos) {
+		this.prodottos = prodottos;
 	}
 
 	public Categoria getCategoria() {

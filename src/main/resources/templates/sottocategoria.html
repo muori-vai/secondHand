@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Sottocategoria</title>
+</head>
+
+<body>
+	<div th:if="${sottocategoria}">
+		<div th:text="${sottocategoria.nome}">
+		</div>
+		<div th:text="${sottocategoria.descrizione}">
+		</div>
+
+		<div>
+			Prodotti di questa sottocategoria:
+		</div>
+		<br>
+
+		<div th:each="prodotto: ${sottocategoria.prodottos}">
+			<div th:text="${prodotto.nome}">
+			</div>
+		</div>
+	</div>
+
+	<div th:unless="${sottocategoria}">
+		Questa Sottocategoria non esiste!
+	</div>
+
+	<a href="index.html" th:href="@{/}">Torna indietro
+	</a>
+</body>
+
+</html>
