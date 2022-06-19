@@ -24,5 +24,8 @@ public class ProdottoValidator implements Validator {
 		if(this.prodottoService.alreadyExists((Prodotto) target)) {
 			errors.reject("prodotto.duplicato");
 		}
+		if(this.prodottoService.illegalSottocategoria((Prodotto) target)) {
+			errors.reject("prodotto.illegalSottocategoria");
+		}
 	}
 }

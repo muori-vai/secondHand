@@ -58,4 +58,12 @@ public class Categoria {
 	public void setProdottos(List<Prodotto> prodottos) {
 		this.prodottos = prodottos;
 	}
+
+	public List<Sottocategoria> getSottocategorias() {
+		return sottocategorias;
+	}
+
+	public void setSottocategorias(List<Sottocategoria> sottocategorias) {
+		this.sottocategorias = sottocategorias;
+	}
 }

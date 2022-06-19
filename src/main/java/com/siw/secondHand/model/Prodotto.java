@@ -26,7 +26,7 @@ public class Prodotto {
 	private Categoria categoria;
 	
 	@ManyToOne
-	@JoinColumn(name="sottocategoria_id", nullable=false)
+	@JoinColumn(name="sottocategoria_id", nullable=true)
 	private Sottocategoria sottocategoria;
 	
 	@ManyToOne
@@ -82,5 +82,21 @@ public class Prodotto {
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	public Sottocategoria getSottocategoria() {
+		return sottocategoria;
+	}
+
+	public void setSottocategoria(Sottocategoria sottocategoria) {
+		this.sottocategoria = sottocategoria;
+	}
+
+	public Luogo getLuogo() {
+		return luogo;
+	}
+
+	public void setLuogo(Luogo luogo) {
+		this.luogo = luogo;
 	}
 }

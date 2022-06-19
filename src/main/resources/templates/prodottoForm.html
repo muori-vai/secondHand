@@ -30,6 +30,14 @@
 				<input type="radio" id="${categorias}" th:field="*{categoria}" name="categoria"
 					th:value="${categoria.id}" />
 				<label for="${categorias}" th:text="${categoria.nome}">nome categoria</label>
+				<fieldset>
+					<legend>Seleziona Sottocategoria</legend>
+					<div th:each="sottocategoria: ${categoria.sottocategorias}">
+						<input type="radio" id="${categoria.sottocategorias}" th:field="*{sottocategoria}" name="sottocategoria"
+							th:value="${sottocategoria.id}" />
+						<label for="${categoria.sottocategorias}" th:text="${sottocategoria.nome}">nome sottocategoria</label>
+					</div>
+				</fieldset>
 			</div>
 		</fieldset>
 		<fieldset>

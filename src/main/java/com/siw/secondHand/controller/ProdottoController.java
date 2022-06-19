@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.siw.secondHand.controller.validator.ProdottoValidator;
 import com.siw.secondHand.model.Prodotto;
 import com.siw.secondHand.service.CategoriaService;
+import com.siw.secondHand.service.LuogoService;
 import com.siw.secondHand.service.ProdottoService;
 
 @Controller
@@ -30,6 +31,9 @@ public class ProdottoController {
 
 	@Autowired
 	private CategoriaService categoriaService;
+
+	@Autowired
+	private LuogoService luogoService;
 
 	@Autowired
 	private ProdottoValidator prodottoValidator;
@@ -47,19 +51,21 @@ public class ProdottoController {
 			if (!multipartFile.isEmpty()) {
 				fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
-				fileName = fileName.replaceAll("\\s+", ""); // per levare gli spazi dal nome dell'immagine, sennò non funziona
+				fileName = fileName.replaceAll("\\s+", ""); // per levare gli spazi dal nome dell'immagine, sennò non
+															// funziona
 
 				prodotto.setFoto(fileName);
 			}
 
-			Prodotto prodottoSalvato = prodottoService.save(prodotto); // questo save è diverso dal save del progetto Catering
+			Prodotto prodottoSalvato = prodottoService.save(prodotto); // questo save è diverso dal save del progetto
+																		// Catering
 
 			if (!multipartFile.isEmpty()) {
 				String uploadDir = "prodotto-foto/" + prodottoSalvato.getId();
-				
+
 				FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 			}
-			
+
 			model.addAttribute("prodotto", prodottoSalvato);
 
 			return "prodotto.html";
@@ -104,6 +110,7 @@ public class ProdottoController {
 	public String getProdottoForm(Model model) {
 		model.addAttribute("prodotto", new Prodotto());
 		model.addAttribute("categorias", this.categoriaService.findAll());
+		model.addAttribute("luogos", this.luogoService.findAll());
 		return "prodottoForm.html";
 	}
 

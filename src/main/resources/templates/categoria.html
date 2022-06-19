@@ -12,14 +12,26 @@
 		</div>
 		<div th:text="${categoria.descrizione}">
 		</div>
-
+		
+		<br>
 		<div>
 			Prodotti di questa categoria:
 		</div>
-		<br>
+		
 
 		<div th:each="prodotto: ${categoria.prodottos}">
 			<div th:text="${prodotto.nome}">
+			</div>
+		</div>
+		
+		<br>
+		<div>
+			Sottocategorie di questa categoria:
+		</div>
+		
+
+		<div th:each="sottocategoria: ${categoria.sottocategorias}">
+			<div th:text="${sottocategoria.nome}">
 			</div>
 		</div>
 	</div>

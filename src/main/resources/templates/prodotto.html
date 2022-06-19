@@ -14,12 +14,20 @@
 		</div>
 		<div th:text="${prodotto.categoria.nome}">
 		</div>
+		<div th:text="${prodotto.luogo.nome}">
+		</div>
+		<div th:if="${prodotto.sottocategoria}">
+			<div th:text="${prodotto.sottocategoria.nome}">
+			</div>
+		</div>
 		<img th:src="@{${prodotto.fotoImagePath}}" />
+
+
 	</div>
 	<div th:unless="${prodotto}">
 		Questo Prodotto non esiste!
 	</div>
-	
+
 	<a href="index.html" th:href="@{/}">Torna indietro
 	</a>
 </body>

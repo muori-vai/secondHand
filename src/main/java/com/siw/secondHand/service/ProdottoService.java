@@ -49,4 +49,8 @@ public class ProdottoService {
 	public boolean alreadyExists(Prodotto prodotto) {
 		return prodottoRepository.existsByNomeAndDescrizione(prodotto.getNome(), prodotto.getDescrizione());
 	}
+	
+	public boolean illegalSottocategoria(Prodotto prodotto) {
+		return !prodotto.getCategoria().equals(prodotto.getSottocategoria().getCategoria());
+	}
 }
