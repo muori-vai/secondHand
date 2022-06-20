@@ -24,7 +24,7 @@
 		</div>
 		<img th:src="@{${prodotto.fotoImagePath}}" />
 
-		<div th:if="${prodotto.user.id}==${currentUserId}">
+		<div th:if="(${prodotto.user.id}==${currentUserId}) OR (${#authorization.expression('hasAuthority(''ADMIN'')')})">
 			<a th:href="@{'/prodotto/edit/form/'+${prodotto.id}}">Modifica prodotto</a>
 			<a th:href="@{'/prodotto/delete/confirm/'+${prodotto.id}}">Cancella prodotto</a>
 		</div>

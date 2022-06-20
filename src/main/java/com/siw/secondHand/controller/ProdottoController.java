@@ -150,7 +150,7 @@ public class ProdottoController {
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 		User currentUser = credentials.getUser();
-		if (prodotto.getUser().equals(currentUser)) {
+		if (credentials.getRole().equals(Credentials.ADMIN_ROLE) || prodotto.getUser().equals(currentUser)) {
 			this.prodottoService.deleteById(id);
 			
 			model.addAttribute("prodottos", prodottoService.findAll());
@@ -170,7 +170,7 @@ public class ProdottoController {
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 		User currentUser = credentials.getUser();
-		if (prodotto.getUser().equals(currentUser)) {
+		if (credentials.getRole().equals(Credentials.ADMIN_ROLE) || prodotto.getUser().equals(currentUser)) {
 			return "prodottoEditForm.html";
 		}
 		return "unauthorized.html";
