@@ -1,6 +1,7 @@
 package com.siw.secondHand.model;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -68,5 +69,23 @@ public class Sottocategoria {
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(categoria, descrizione, nome);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Sottocategoria other = (Sottocategoria) obj;
+		return Objects.equals(categoria, other.categoria) && Objects.equals(descrizione, other.descrizione)
+				&& Objects.equals(nome, other.nome);
 	}
 }

@@ -17,7 +17,6 @@
 		<div>
 			Prodotti di questa categoria:
 		</div>
-		
 
 		<div th:each="prodotto: ${categoria.prodottos}">
 			<div th:text="${prodotto.nome}">
@@ -34,6 +33,9 @@
 			<div th:text="${sottocategoria.nome}">
 			</div>
 		</div>
+		
+		<a th:href="@{'/categoria/edit/form/'+${categoria.id}}">Modifica categoria</a>
+		<a th:href="@{'/categoria/confirm/delete/'+${categoria.id}}">Cancella categoria</a>
 	</div>
 
 	<div th:unless="${categoria}">

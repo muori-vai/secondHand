@@ -22,6 +22,9 @@
 			<div th:text="${prodotto.nome}">
 			</div>
 		</div>
+		
+		<a th:href="@{'/sottocategoria/edit/form/'+${sottocategoria.id}}">Modifica sottocategoria</a>
+		<a th:href="@{'/sottocategoria/confirm/delete/'+${sottocategoria.id}}">Cancella sottocategoria</a>
 	</div>
 
 	<div th:unless="${sottocategoria}">

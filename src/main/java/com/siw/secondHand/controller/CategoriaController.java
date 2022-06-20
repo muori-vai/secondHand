@@ -35,19 +35,19 @@ public class CategoriaController {
 		
 		if (!bindingResult.hasErrors()) {
 			
-			Categoria categoriaSalvato = categoriaService.save(categoria); //questo save è diverso dal save del progetto Catering
+			Categoria categoriaSalvata = categoriaService.save(categoria); //questo save è diverso dal save del progetto Catering
 
 			//categoriaSalvato mi servirà dopo
 			
-			model.addAttribute("categoria", categoriaSalvato);
+			model.addAttribute("categoria", categoriaSalvata);
 			
-			return "categoria.html";
+			return "redirect:/categoria/"+categoriaSalvata.getId();
 		}
 
 		return "categoriaForm.html";
 	}
 
-	@GetMapping("/categorias")
+	@GetMapping("/categoria/all")
 	public String getCategorias(Model model) {
 		List<Categoria> categorias = categoriaService.findAll();
 		model.addAttribute("categorias", categorias);
@@ -63,21 +63,21 @@ public class CategoriaController {
 		return "categoria.html";
 	}
 
-	@GetMapping("/categoriaForm")
+	@GetMapping("/categoria/form")
 	public String getCategoriaForm(Model model) {
 		model.addAttribute("categoria", new Categoria());
 
 		return "categoriaForm.html";
 	}
 
-	@GetMapping("/deleteCategoria/{id}")
+	@GetMapping("/categoria/delete/{id}")
 	public String deleteCategoria(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("categoria", this.categoriaService.findById(id));
 
-		return "deleteCategoria.html";
+		return "categoriaDelete.html";
 	}
 
-	@GetMapping("/confirmDeleteCategoria/{id}")
+	@GetMapping("/categoria/delete/confirm/{id}")
 	public String confirmDeleteCategoria(@PathVariable("id") Long id,
 			/* @RequestParam(value="action", required=true) String action, */ Model model) {
 		/*
@@ -89,5 +89,36 @@ public class CategoriaController {
 		model.addAttribute("categorias", categoriaService.findAll());
 
 		return "categorias.html";
+	}
+	
+	@GetMapping("/categoria/edit/form/{id}")
+	public String editCategoriaForm(@PathVariable Long id, Model model) {
+		model.addAttribute("categoria", categoriaService.findById(id));
+		
+		return "categoriaEditForm.html";
+	}
+
+	@PostMapping("/categoria/edit/{id}")
+	public String editCategoria(@Valid @ModelAttribute("categoria") Categoria categoria, BindingResult bindingResult, @PathVariable Long id,
+			Model model) {
+
+		Categoria vecchiaCategoria = this.categoriaService.findById(id);
+
+		if (!vecchiaCategoria.equals(categoria))
+			this.categoriaValidator.validate(categoria, bindingResult);
+
+		if (!bindingResult.hasErrors()) {
+
+			vecchiaCategoria.setNome(categoria.getNome());
+			vecchiaCategoria.setDescrizione(categoria.getDescrizione());
+			
+			Categoria categoriaSalvata = this.categoriaService.save(vecchiaCategoria);
+		
+			model.addAttribute("categoria", categoriaSalvata);
+			
+			return "redirect:/categoria/"+categoriaSalvata.getId();
+		}
+
+		return "categoriaEditForm.html";
 	}
 }

@@ -15,11 +15,14 @@
 			Prodotti di questo luogo:
 		</div>
 		<br>
-		
+
 		<div th:each="prodotto: ${luogo.prodottos}">
 			<div th:text="${prodotto.nome}">
 			</div>
 		</div>
+
+		<a th:href="@{'/luogo/edit/form/'+${luogo.id}}">Modifica luogo</a>
+		<a th:href="@{'/luogo/confirm/delete/'+${luogo.id}}">Cancella luogo</a>
 	</div>
 
 	<div th:unless="${luogo}">

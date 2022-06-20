@@ -39,13 +39,13 @@ public class LuogoController {
 			
 			model.addAttribute("luogo", luogoSalvato);
 			
-			return "luogo.html";
+			return "redirect:/luogo/"+luogoSalvato.getId();
 		}
 
 		return "luogoForm.html";
 	}
 
-	@GetMapping("/luogos")
+	@GetMapping("/luogo/all")
 	public String getLuogos(Model model) {
 		List<Luogo> luogos = luogoService.findAll();
 		model.addAttribute("luogos", luogos);
@@ -61,21 +61,21 @@ public class LuogoController {
 		return "luogo.html";
 	}
 
-	@GetMapping("/luogoForm")
+	@GetMapping("/luogo/form")
 	public String getLuogoForm(Model model) {
 		model.addAttribute("luogo", new Luogo());
 
 		return "luogoForm.html";
 	}
 
-	@GetMapping("/deleteLuogo/{id}")
+	@GetMapping("/luogo/delete/{id}")
 	public String deleteLuogo(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("luogo", this.luogoService.findById(id));
 
-		return "deleteLuogo.html";
+		return "luogoDelete.html";
 	}
 
-	@GetMapping("/confirmDeleteLuogo/{id}")
+	@GetMapping("/luogo/delete/confirm/{id}")
 	public String confirmDeleteLuogo(@PathVariable("id") Long id, Model model) {
 		this.luogoService.deleteById(id);
 

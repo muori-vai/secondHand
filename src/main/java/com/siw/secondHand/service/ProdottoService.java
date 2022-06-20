@@ -19,14 +19,14 @@ public class ProdottoService {
 
 	@Transactional
 	public Prodotto save(Prodotto prodotto) {
-		return prodottoRepository.save(prodotto); //dopo aver salvato, ritorna il prodotto salvato
+		return prodottoRepository.save(prodotto); // dopo aver salvato, ritorna il prodotto salvato
 	}
-	
+
 	@Transactional
 	public void delete(Prodotto prodotto) {
 		prodottoRepository.delete(prodotto);
 	}
-	
+
 	@Transactional
 	public void deleteById(Long id) {
 		prodottoRepository.deleteById(id);
@@ -35,22 +35,25 @@ public class ProdottoService {
 	public Prodotto findById(Long id) {
 		return prodottoRepository.findById(id).get();
 	}
-	
+
 	public List<Prodotto> findAll() {
 		List<Prodotto> prodottos = new ArrayList<Prodotto>();
-		
-		for(Prodotto p: prodottoRepository.findAll()) {
+
+		for (Prodotto p : prodottoRepository.findAll()) {
 			prodottos.add(p);
 		}
-		
+
 		return prodottos;
 	}
-	
+
 	public boolean alreadyExists(Prodotto prodotto) {
-		return prodottoRepository.existsByNomeAndDescrizione(prodotto.getNome(), prodotto.getDescrizione());
+		return prodottoRepository.existsByNomeAndDescrizioneAndCategoriaAndSottocategoriaAndLuogoAndFoto(prodotto.getNome(),
+				prodotto.getDescrizione(), prodotto.getCategoria(), prodotto.getSottocategoria(), prodotto.getLuogo(), prodotto.getFoto());
 	}
-	
+
 	public boolean illegalSottocategoria(Prodotto prodotto) {
-		return !prodotto.getCategoria().equals(prodotto.getSottocategoria().getCategoria());
+		if (prodotto.getCategoria() == null || prodotto.getSottocategoria() == null)
+			return false; // ci pensa poi il NotNull a dare il warning
+		return (!prodotto.getCategoria().equals(prodotto.getSottocategoria().getCategoria()));
 	}
 }

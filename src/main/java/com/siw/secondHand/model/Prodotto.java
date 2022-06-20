@@ -1,5 +1,7 @@
 package com.siw.secondHand.model;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Prodotto {
@@ -21,16 +24,19 @@ public class Prodotto {
 	@NotBlank
 	private String descrizione;
 
+	@NotNull
 	@ManyToOne//(cascade = { CascadeType.ALL })
-	@JoinColumn(name="categoria_id", nullable=false)
+	@JoinColumn(name="categoria_id")
 	private Categoria categoria;
 	
+	@NotNull
 	@ManyToOne
-	@JoinColumn(name="sottocategoria_id", nullable=true)
+	@JoinColumn(name="sottocategoria_id")
 	private Sottocategoria sottocategoria;
 	
+	@NotNull
 	@ManyToOne
-	@JoinColumn(name="luogo_id", nullable=false)
+	@JoinColumn(name="luogo_id")
 	private Luogo luogo;
 
 	@Column(nullable = true, length = 64)
@@ -98,5 +104,24 @@ public class Prodotto {
 
 	public void setLuogo(Luogo luogo) {
 		this.luogo = luogo;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(categoria, descrizione, foto, luogo, nome, sottocategoria);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Prodotto other = (Prodotto) obj;
+		return Objects.equals(categoria, other.categoria) && Objects.equals(descrizione, other.descrizione)
+				&& Objects.equals(foto, other.foto) && Objects.equals(luogo, other.luogo)
+				&& Objects.equals(nome, other.nome) && Objects.equals(sottocategoria, other.sottocategoria);
 	}
 }

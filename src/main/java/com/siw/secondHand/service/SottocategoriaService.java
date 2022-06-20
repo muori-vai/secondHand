@@ -19,14 +19,14 @@ public class SottocategoriaService {
 
 	@Transactional
 	public Sottocategoria save(Sottocategoria sottocategoria) {
-		return sottocategoriaRepository.save(sottocategoria); //dopo aver salvato, ritorna la sottocategoria salvata
+		return sottocategoriaRepository.save(sottocategoria); // dopo aver salvato, ritorna la sottocategoria salvata
 	}
-	
+
 	@Transactional
 	public void delete(Sottocategoria sottocategoria) {
 		sottocategoriaRepository.delete(sottocategoria);
 	}
-	
+
 	@Transactional
 	public void deleteById(Long id) {
 		sottocategoriaRepository.deleteById(id);
@@ -35,18 +35,19 @@ public class SottocategoriaService {
 	public Sottocategoria findById(Long id) {
 		return sottocategoriaRepository.findById(id).get();
 	}
-	
+
 	public List<Sottocategoria> findAll() {
 		List<Sottocategoria> sottocategorias = new ArrayList<Sottocategoria>();
-		
-		for(Sottocategoria s: sottocategoriaRepository.findAll()) {
+
+		for (Sottocategoria s : sottocategoriaRepository.findAll()) {
 			sottocategorias.add(s);
 		}
-		
+
 		return sottocategorias;
 	}
-	
+
 	public boolean alreadyExists(Sottocategoria sottocategoria) {
-		return sottocategoriaRepository.existsByNomeAndDescrizione(sottocategoria.getNome(), sottocategoria.getDescrizione());
+		return sottocategoriaRepository.existsByNomeAndDescrizioneAndCategoria(sottocategoria.getNome(),
+				sottocategoria.getDescrizione(), sottocategoria.getCategoria());
 	}
 }

@@ -21,9 +21,12 @@
 			</div>
 		</div>
 		<img th:src="@{${prodotto.fotoImagePath}}" />
-
-
+		
+		<a th:href="@{'/prodotto/edit/form/'+${prodotto.id}}">Modifica prodotto</a>
+		<a th:href="@{'/prodotto/delete/confirm/'+${prodotto.id}}">Cancella prodotto</a>
+		
 	</div>
+	
 	<div th:unless="${prodotto}">
 		Questo Prodotto non esiste!
 	</div>

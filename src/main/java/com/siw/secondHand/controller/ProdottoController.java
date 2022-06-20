@@ -57,8 +57,7 @@ public class ProdottoController {
 				prodotto.setFoto(fileName);
 			}
 
-			Prodotto prodottoSalvato = prodottoService.save(prodotto); // questo save è diverso dal save del progetto
-																		// Catering
+			Prodotto prodottoSalvato = prodottoService.save(prodotto); // questo save è diverso dal save del progetto Catering
 
 			if (!multipartFile.isEmpty()) {
 				String uploadDir = "prodotto-foto/" + prodottoSalvato.getId();
@@ -68,9 +67,11 @@ public class ProdottoController {
 
 			model.addAttribute("prodotto", prodottoSalvato);
 
-			return "prodotto.html";
+			return "redirect:/prodotto/"+prodottoSalvato.getId();
 		}
 
+		model.addAttribute("categorias", this.categoriaService.findAll());
+		model.addAttribute("luogos", this.luogoService.findAll());
 		return "prodottoForm.html";
 	}
 
@@ -90,7 +91,7 @@ public class ProdottoController {
 //		return "prodottoForm.html";
 //	}
 
-	@GetMapping("/prodottos")
+	@GetMapping("/prodotto/all")
 	public String getProdottos(Model model) {
 		List<Prodotto> prodottos = prodottoService.findAll();
 		model.addAttribute("prodottos", prodottos);
@@ -106,7 +107,7 @@ public class ProdottoController {
 		return "prodotto.html";
 	}
 
-	@GetMapping("/prodottoForm")
+	@GetMapping("/prodotto/form")
 	public String getProdottoForm(Model model) {
 		model.addAttribute("prodotto", new Prodotto());
 		model.addAttribute("categorias", this.categoriaService.findAll());
@@ -114,14 +115,14 @@ public class ProdottoController {
 		return "prodottoForm.html";
 	}
 
-	@GetMapping("/deleteProdotto/{id}")
+	@GetMapping("/prodotto/delete/{id}")
 	public String deleteProdotto(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("prodotto", this.prodottoService.findById(id));
 
-		return "deleteProdotto.html";
+		return "prodottoDelete.html";
 	}
 
-	@GetMapping("/confirmDeleteProdotto/{id}")
+	@GetMapping("/prodotto/delete/confirm/{id}")
 	public String confirmDeleteProdotto(@PathVariable("id") Long id,
 			/* @RequestParam(value="action", required=true) String action, */ Model model) {
 		/*
@@ -133,5 +134,45 @@ public class ProdottoController {
 		model.addAttribute("prodottos", prodottoService.findAll());
 
 		return "prodottos.html";
+	}
+	
+	@GetMapping("/prodotto/edit/form/{id}")
+	public String editProdottoForm(@PathVariable Long id, Model model) {
+		model.addAttribute("prodotto", prodottoService.findById(id));
+		model.addAttribute("categorias", this.categoriaService.findAll());
+		model.addAttribute("luogos", this.luogoService.findAll());
+		
+		return "prodottoEditForm.html";
+	}
+
+	@PostMapping("/prodotto/edit/{id}")
+	public String editProdotto(@Valid @ModelAttribute("prodotto") Prodotto prodotto, BindingResult bindingResult, @PathVariable Long id,
+			Model model, @RequestParam("image") MultipartFile multipartFile) throws IOException {
+
+		Prodotto vecchioProdotto = this.prodottoService.findById(id);
+
+		if (!vecchioProdotto.equals(prodotto))
+			this.prodottoValidator.validate(prodotto, bindingResult);
+
+		if (!bindingResult.hasErrors()) {
+			String fileName = null;
+			if (!multipartFile.isEmpty()) {
+				fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+				fileName = fileName.replaceAll("\\s+", ""); // per levare gli spazi dal nome dell'immagine, sennò non funziona
+				prodotto.setFoto(fileName);
+			}
+			prodotto.setId(vecchioProdotto.getId());
+			Prodotto prodottoSalvato = this.prodottoService.save(prodotto);
+			if (!multipartFile.isEmpty()) {
+				String uploadDir = "prodotto-foto/" + prodottoSalvato.getId();
+				FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+			}			
+			model.addAttribute("prodotto", prodottoSalvato);
+			return "redirect:/prodotto/"+prodottoSalvato.getId();
+		}
+		model.addAttribute("categorias", this.categoriaService.findAll());
+		model.addAttribute("luogos", this.luogoService.findAll());
+
+		return "prodottoEditForm.html";
 	}
 }

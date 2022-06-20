@@ -3,11 +3,11 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<title>Categoria</title>
+	<title>Sottocategoria</title>
 </head>
 
 <body>
-	<form th:action="@{'/categoria/edit/'+${categoria.id}}" method="POST" th:object="${categoria}">
+	<form th:action="@{'/sottocategoria/edit/'+${sottocategoria.id}}" method="POST" th:object="${sottocategoria}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
 		</div>
@@ -22,11 +22,21 @@
 			</div>
 		</div>
 
+		<fieldset>
+			<legend>Seleziona Categoria</legend>
+			<div th:each="categoria: ${categorias}">
+				<!-- type="radio": una sola scelta; type="checkbox": più scelte-->
+				<input type="radio" id="${categorias}" th:field="*{categoria}" name="categoria"
+					th:value="${categoria.id}" />
+				<label for="${categorias}" th:text="${categoria.nome}">nome categoria</label>
+			</div>
+		</fieldset>
+
 		<div>
 			<button type="submit">Conferma</button>
 		</div>
 	</form>
-	
+
 	<a href="index.html" th:href="@{/}">Torna indietro
 	</a>
 </body>

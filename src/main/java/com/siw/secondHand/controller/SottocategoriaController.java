@@ -39,17 +39,17 @@ public class SottocategoriaController {
 		
 		if (!bindingResult.hasErrors()) {
 			
-			Sottocategoria sottocategoriaSalvato = sottocategoriaService.save(sottocategoria); //questo save è diverso dal save del progetto Catering
+			Sottocategoria sottocategoriaSalvata = sottocategoriaService.save(sottocategoria); //questo save è diverso dal save del progetto Catering
 			
-			model.addAttribute("sottocategoria", sottocategoriaSalvato);
+			model.addAttribute("sottocategoria", sottocategoriaSalvata);
 
-			return "sottocategoria.html";
+			return "redirect:/sottocategoria/"+sottocategoriaSalvata.getId();
 		}
 
 		return "sottocategoriaForm.html";
 	}
 
-	@GetMapping("/sottocategorias")
+	@GetMapping("/sottocategoria/all")
 	public String getSottocategorias(Model model) {
 		List<Sottocategoria> sottocategorias = sottocategoriaService.findAll();
 		model.addAttribute("sottocategorias", sottocategorias);
@@ -65,7 +65,7 @@ public class SottocategoriaController {
 		return "sottocategoria.html";
 	}
 
-	@GetMapping("/sottocategoriaForm")
+	@GetMapping("/sottocategoria/form")
 	public String getSottocategoriaForm(Model model) {
 		model.addAttribute("sottocategoria", new Sottocategoria());
 		model.addAttribute("categorias", this.categoriaService.findAll());
@@ -73,14 +73,14 @@ public class SottocategoriaController {
 		return "sottocategoriaForm.html";
 	}
 
-	@GetMapping("/deleteSottocategoria/{id}")
+	@GetMapping("/sottocategoria/delete/{id}")
 	public String deleteSottocategoria(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("sottocategoria", this.sottocategoriaService.findById(id));
 
-		return "deleteSottocategoria.html";
+		return "sottocategoriaDelete.html";
 	}
 
-	@GetMapping("/confirmDeleteSottocategoria/{id}")
+	@GetMapping("/sottocategoria/delete/confirm/{id}")
 	public String confirmDeleteSottocategoria(@PathVariable("id") Long id,
 			/* @RequestParam(value="action", required=true) String action, */ Model model) {
 		/*
@@ -92,5 +92,39 @@ public class SottocategoriaController {
 		model.addAttribute("sottocategorias", sottocategoriaService.findAll());
 
 		return "sottocategorias.html";
+	}
+	
+	@GetMapping("/sottocategoria/edit/form/{id}")
+	public String editSottocategoriaForm(@PathVariable Long id, Model model) {
+		model.addAttribute("sottocategoria", sottocategoriaService.findById(id));
+		model.addAttribute("sottocategorias", this.categoriaService.findAll());
+		
+		return "sottocategoriaEditForm.html";
+	}
+
+	@PostMapping("/sottocategoria/edit/{id}")
+	public String editSottocategoria(@Valid @ModelAttribute("sottocategoria") Sottocategoria sottocategoria, BindingResult bindingResult, @PathVariable Long id,
+			Model model) {
+
+		Sottocategoria vecchiaSottocategoria = this.sottocategoriaService.findById(id);
+
+		if (!vecchiaSottocategoria.equals(sottocategoria))
+			this.sottocategoriaValidator.validate(sottocategoria, bindingResult);
+
+		if (!bindingResult.hasErrors()) {
+
+			vecchiaSottocategoria.setNome(sottocategoria.getNome());
+			vecchiaSottocategoria.setDescrizione(sottocategoria.getDescrizione());
+			
+			Sottocategoria sottocategoriaSalvata = this.sottocategoriaService.save(vecchiaSottocategoria);
+		
+			model.addAttribute("sottocategoria", sottocategoriaSalvata);
+			
+			return "redirect:/sottocategoria/"+sottocategoriaSalvata.getId();
+		}
+		
+		model.addAttribute("sottocategorias", this.categoriaService.findAll());
+		
+		return "sottocategoriaEditForm.html";
 	}
 }

@@ -7,7 +7,7 @@
 </head>
 
 <body>
-	<form th:action="@{/prodotto}" method="POST" th:object="${prodotto}" enctype="multipart/form-data">
+	<form th:action="@{'/prodotto/edit/'+${prodotto.id}}" method="POST" th:object="${prodotto}" enctype="multipart/form-data">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
 		</div>
@@ -29,20 +29,18 @@
 			</div>
 			<div th:if="${#fields.hasErrors('sottocategoria')}" th:errors="*{sottocategoria}">
 			</div>
+			
 			<legend>Seleziona Categoria</legend>
-
 			<div th:each="categoria: ${categorias}">
 				<input type="radio" id="${categorias}" th:field="*{categoria}" name="categoria"
 					th:value="${categoria.id}" />
 				<label for="${categorias}" th:text="${categoria.nome}">nome categoria</label>
-
 				<fieldset>
 					<legend>Seleziona Sottocategoria</legend>
 					<div th:each="sottocategoria: ${categoria.sottocategorias}">
-						<input type="radio" id="${categoria.sottocategorias}" th:field="*{sottocategoria}"
-							name="sottocategoria" th:value="${sottocategoria.id}" />
-						<label for="${categoria.sottocategorias}" th:text="${sottocategoria.nome}">nome
-							sottocategoria</label>
+						<input type="radio" id="${categoria.sottocategorias}" th:field="*{sottocategoria}" name="sottocategoria"
+							th:value="${sottocategoria.id}" />
+						<label for="${categoria.sottocategorias}" th:text="${sottocategoria.nome}">nome sottocategoria</label>
 					</div>
 				</fieldset>
 			</div>
