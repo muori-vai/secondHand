@@ -6,6 +6,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -18,8 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.siw.secondHand.controller.validator.ProdottoValidator;
+import com.siw.secondHand.model.Credentials;
 import com.siw.secondHand.model.Prodotto;
+import com.siw.secondHand.model.User;
 import com.siw.secondHand.service.CategoriaService;
+import com.siw.secondHand.service.CredentialsService;
 import com.siw.secondHand.service.LuogoService;
 import com.siw.secondHand.service.ProdottoService;
 
@@ -34,6 +39,9 @@ public class ProdottoController {
 
 	@Autowired
 	private LuogoService luogoService;
+	
+	@Autowired
+	private CredentialsService credentialsService;
 
 	@Autowired
 	private ProdottoValidator prodottoValidator;
@@ -42,6 +50,11 @@ public class ProdottoController {
 	public String addProdotto(@Valid @ModelAttribute("prodotto") Prodotto prodotto, BindingResult bindingResult,
 			Model model, @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
+		User currentUser = credentials.getUser();
+		prodotto.setUser(currentUser);
+		
 		prodottoValidator.validate(prodotto, bindingResult);
 
 		if (!bindingResult.hasErrors()) {
@@ -64,10 +77,11 @@ public class ProdottoController {
 
 				FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 			}
-
+			
 			model.addAttribute("prodotto", prodottoSalvato);
-
+			model.addAttribute("currentUserId", currentUser.getId());
 			return "redirect:/prodotto/"+prodottoSalvato.getId();
+			//return "prodotto.html";
 		}
 
 		model.addAttribute("categorias", this.categoriaService.findAll());
@@ -103,7 +117,10 @@ public class ProdottoController {
 	public String getProdotto(@PathVariable("id") Long id, Model model) {
 		Prodotto prodotto = prodottoService.findById(id);
 		model.addAttribute("prodotto", prodotto);
-
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
+		User currentUser = credentials.getUser();
+		model.addAttribute("currentUserId", currentUser.getId());
 		return "prodotto.html";
 	}
 
@@ -128,21 +145,35 @@ public class ProdottoController {
 		/*
 		 * if(action.equals("Elimina")) { this.prodottoService.deleteById(id); }
 		 */
+		Prodotto prodotto = this.prodottoService.findById(id);
+		
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
+		User currentUser = credentials.getUser();
+		if (prodotto.getUser().equals(currentUser)) {
+			this.prodottoService.deleteById(id);
+			
+			model.addAttribute("prodottos", prodottoService.findAll());
 
-		this.prodottoService.deleteById(id);
+			return "prodottos.html";
+		}
 
-		model.addAttribute("prodottos", prodottoService.findAll());
-
-		return "prodottos.html";
+		return "unauthorized.html";
 	}
 	
 	@GetMapping("/prodotto/edit/form/{id}")
 	public String editProdottoForm(@PathVariable Long id, Model model) {
-		model.addAttribute("prodotto", prodottoService.findById(id));
+		Prodotto prodotto = prodottoService.findById(id);
+		model.addAttribute("prodotto", prodotto);
 		model.addAttribute("categorias", this.categoriaService.findAll());
 		model.addAttribute("luogos", this.luogoService.findAll());
-		
-		return "prodottoEditForm.html";
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
+		User currentUser = credentials.getUser();
+		if (prodotto.getUser().equals(currentUser)) {
+			return "prodottoEditForm.html";
+		}
+		return "unauthorized.html";
 	}
 
 	@PostMapping("/prodotto/edit/{id}")
@@ -162,6 +193,7 @@ public class ProdottoController {
 				prodotto.setFoto(fileName);
 			}
 			prodotto.setId(vecchioProdotto.getId());
+			prodotto.setUser(vecchioProdotto.getUser());
 			Prodotto prodottoSalvato = this.prodottoService.save(prodotto);
 			if (!multipartFile.isEmpty()) {
 				String uploadDir = "prodotto-foto/" + prodottoSalvato.getId();

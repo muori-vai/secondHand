@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Utente</title>
+</head>
+
+<body>
+	<div th:if="${user}">
+		<div th:text="${user.nome}">
+		</div>
+		<div th:text="${user.cognome}">
+		</div>
+		<div th:each="prodotto: ${user.prodottos}">
+			<div th:text="${prodotto.nome}">
+			</div>
+		</div>
+		
+		<a th:href="@{'/user/edit/form/'+${user.id}}">Modifica Utente</a>
+		
+	</div>
+	
+	<div th:unless="${user}">
+		Quest'Utente non esiste!
+	</div>
+
+	<a href="index.html" th:href="@{/}">Torna indietro
+	</a>
+</body>
+
+</html>

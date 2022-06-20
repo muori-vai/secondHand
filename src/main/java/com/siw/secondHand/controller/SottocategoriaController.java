@@ -65,7 +65,7 @@ public class SottocategoriaController {
 		return "sottocategoria.html";
 	}
 
-	@GetMapping("/sottocategoria/form")
+	@GetMapping("admin/sottocategoria/form")
 	public String getSottocategoriaForm(Model model) {
 		model.addAttribute("sottocategoria", new Sottocategoria());
 		model.addAttribute("categorias", this.categoriaService.findAll());
@@ -73,14 +73,14 @@ public class SottocategoriaController {
 		return "sottocategoriaForm.html";
 	}
 
-	@GetMapping("/sottocategoria/delete/{id}")
+	@GetMapping("admin/sottocategoria/delete/{id}")
 	public String deleteSottocategoria(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("sottocategoria", this.sottocategoriaService.findById(id));
 
 		return "sottocategoriaDelete.html";
 	}
 
-	@GetMapping("/sottocategoria/delete/confirm/{id}")
+	@GetMapping("admin/sottocategoria/delete/confirm/{id}")
 	public String confirmDeleteSottocategoria(@PathVariable("id") Long id,
 			/* @RequestParam(value="action", required=true) String action, */ Model model) {
 		/*
@@ -94,7 +94,7 @@ public class SottocategoriaController {
 		return "sottocategorias.html";
 	}
 	
-	@GetMapping("/sottocategoria/edit/form/{id}")
+	@GetMapping("admin/sottocategoria/edit/form/{id}")
 	public String editSottocategoriaForm(@PathVariable Long id, Model model) {
 		model.addAttribute("sottocategoria", sottocategoriaService.findById(id));
 		model.addAttribute("sottocategorias", this.categoriaService.findAll());
@@ -102,7 +102,7 @@ public class SottocategoriaController {
 		return "sottocategoriaEditForm.html";
 	}
 
-	@PostMapping("/sottocategoria/edit/{id}")
+	@PostMapping("admin/sottocategoria/edit/{id}")
 	public String editSottocategoria(@Valid @ModelAttribute("sottocategoria") Sottocategoria sottocategoria, BindingResult bindingResult, @PathVariable Long id,
 			Model model) {
 

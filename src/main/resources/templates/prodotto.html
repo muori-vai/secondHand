@@ -16,17 +16,21 @@
 		</div>
 		<div th:text="${prodotto.luogo.nome}">
 		</div>
-		<div th:if="${prodotto.sottocategoria}">
-			<div th:text="${prodotto.sottocategoria.nome}">
-			</div>
+
+		<div th:text="${prodotto.sottocategoria.nome}">
+		</div>
+
+		<div th:text="${prodotto.user.nome}">
 		</div>
 		<img th:src="@{${prodotto.fotoImagePath}}" />
-		
-		<a th:href="@{'/prodotto/edit/form/'+${prodotto.id}}">Modifica prodotto</a>
-		<a th:href="@{'/prodotto/delete/confirm/'+${prodotto.id}}">Cancella prodotto</a>
-		
+
+		<div th:if="${prodotto.user.id}==${currentUserId}">
+			<a th:href="@{'/prodotto/edit/form/'+${prodotto.id}}">Modifica prodotto</a>
+			<a th:href="@{'/prodotto/delete/confirm/'+${prodotto.id}}">Cancella prodotto</a>
+		</div>
+
 	</div>
-	
+
 	<div th:unless="${prodotto}">
 		Questo Prodotto non esiste!
 	</div>

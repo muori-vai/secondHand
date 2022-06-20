@@ -38,6 +38,10 @@ public class Prodotto {
 	@ManyToOne
 	@JoinColumn(name="luogo_id")
 	private Luogo luogo;
+	
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
 
 	@Column(nullable = true, length = 64)
 	private String foto;
@@ -123,5 +127,13 @@ public class Prodotto {
 		return Objects.equals(categoria, other.categoria) && Objects.equals(descrizione, other.descrizione)
 				&& Objects.equals(foto, other.foto) && Objects.equals(luogo, other.luogo)
 				&& Objects.equals(nome, other.nome) && Objects.equals(sottocategoria, other.sottocategoria);
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

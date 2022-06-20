@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Utenti</title>
+</head>
+
+<body>
+	<div th:each="user: ${users}">
+		<div th:text="${user.nome}">
+		</div>
+		<a href="categoria.html" th:href="@{'/user/'+${user.id}}" th:text="dettagli">
+		</a>
+	</div>
+	
+	<a href="index.html" th:href="@{/}">Torna indietro
+	</a>
+</body>
+
+</html>

@@ -61,21 +61,21 @@ public class LuogoController {
 		return "luogo.html";
 	}
 
-	@GetMapping("/luogo/form")
+	@GetMapping("admin/luogo/form")
 	public String getLuogoForm(Model model) {
 		model.addAttribute("luogo", new Luogo());
 
 		return "luogoForm.html";
 	}
 
-	@GetMapping("/luogo/delete/{id}")
+	@GetMapping("admin/luogo/delete/{id}")
 	public String deleteLuogo(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("luogo", this.luogoService.findById(id));
 
 		return "luogoDelete.html";
 	}
 
-	@GetMapping("/luogo/delete/confirm/{id}")
+	@GetMapping("admin/luogo/delete/confirm/{id}")
 	public String confirmDeleteLuogo(@PathVariable("id") Long id, Model model) {
 		this.luogoService.deleteById(id);
 
@@ -84,14 +84,14 @@ public class LuogoController {
 		return "luogos.html";
 	}
 	
-	@GetMapping("/luogo/edit/form/{id}")
+	@GetMapping("admin/luogo/edit/form/{id}")
 	public String editLuogoForm(@PathVariable Long id, Model model) {
 		model.addAttribute("luogo", luogoService.findById(id));
 		
 		return "luogoEditForm.html";
 	}
 
-	@PostMapping("/luogo/edit/{id}")
+	@PostMapping("admin/luogo/edit/{id}")
 	public String editLuogo(@Valid @ModelAttribute("luogo") Luogo luogo, BindingResult bindingResult, @PathVariable Long id,
 			Model model) {
 

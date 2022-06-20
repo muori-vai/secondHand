@@ -63,21 +63,21 @@ public class CategoriaController {
 		return "categoria.html";
 	}
 
-	@GetMapping("/categoria/form")
+	@GetMapping("admin/categoria/form")
 	public String getCategoriaForm(Model model) {
 		model.addAttribute("categoria", new Categoria());
 
 		return "categoriaForm.html";
 	}
 
-	@GetMapping("/categoria/delete/{id}")
+	@GetMapping("admin/categoria/delete/{id}")
 	public String deleteCategoria(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("categoria", this.categoriaService.findById(id));
 
 		return "categoriaDelete.html";
 	}
 
-	@GetMapping("/categoria/delete/confirm/{id}")
+	@GetMapping("admin/categoria/delete/confirm/{id}")
 	public String confirmDeleteCategoria(@PathVariable("id") Long id,
 			/* @RequestParam(value="action", required=true) String action, */ Model model) {
 		/*
@@ -91,14 +91,14 @@ public class CategoriaController {
 		return "categorias.html";
 	}
 	
-	@GetMapping("/categoria/edit/form/{id}")
+	@GetMapping("admin/categoria/edit/form/{id}")
 	public String editCategoriaForm(@PathVariable Long id, Model model) {
 		model.addAttribute("categoria", categoriaService.findById(id));
 		
 		return "categoriaEditForm.html";
 	}
 
-	@PostMapping("/categoria/edit/{id}")
+	@PostMapping("admin/categoria/edit/{id}")
 	public String editCategoria(@Valid @ModelAttribute("categoria") Categoria categoria, BindingResult bindingResult, @PathVariable Long id,
 			Model model) {
 
