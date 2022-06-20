@@ -7,7 +7,7 @@
 </head>
 
 <body>
-	<form th:action="@{'/categoria/edit/'+${categoria.id}}" method="POST" th:object="${categoria}">
+	<form th:action="@{/categoria}" method="POST" th:object="${categoria}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
 		</div>

@@ -3,6 +3,7 @@ package com.siw.secondHand.model;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +21,7 @@ public class Luogo {
 	@NotBlank
 	private String nome;
 
-	@OneToMany(mappedBy="luogo")
+	@OneToMany(mappedBy="luogo", cascade={CascadeType.REMOVE})
 	private List<Prodotto> prodottos;
 	
 	public Long getId() {

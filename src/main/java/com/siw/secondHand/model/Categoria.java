@@ -3,6 +3,7 @@ package com.siw.secondHand.model;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,10 +23,10 @@ public class Categoria {
 	@NotBlank
 	private String descrizione;
 	
-	@OneToMany(mappedBy="categoria")
+	@OneToMany(mappedBy="categoria", cascade={CascadeType.REMOVE})
 	private List<Prodotto> prodottos;
 	
-	@OneToMany(mappedBy="categoria")
+	@OneToMany(mappedBy="categoria", cascade={CascadeType.REMOVE})
 	private List<Sottocategoria> sottocategorias;
 
 	public Long getId() {

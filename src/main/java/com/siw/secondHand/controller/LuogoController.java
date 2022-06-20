@@ -83,4 +83,34 @@ public class LuogoController {
 
 		return "luogos.html";
 	}
+	
+	@GetMapping("/luogo/edit/form/{id}")
+	public String editLuogoForm(@PathVariable Long id, Model model) {
+		model.addAttribute("luogo", luogoService.findById(id));
+		
+		return "luogoEditForm.html";
+	}
+
+	@PostMapping("/luogo/edit/{id}")
+	public String editLuogo(@Valid @ModelAttribute("luogo") Luogo luogo, BindingResult bindingResult, @PathVariable Long id,
+			Model model) {
+
+		Luogo vecchioLuogo = this.luogoService.findById(id);
+
+		if (!vecchioLuogo.equals(luogo))
+			this.luogoValidator.validate(luogo, bindingResult);
+
+		if (!bindingResult.hasErrors()) {
+
+			vecchioLuogo.setNome(luogo.getNome());
+			
+			Luogo luogoSalvata = this.luogoService.save(vecchioLuogo);
+		
+			model.addAttribute("luogo", luogoSalvata);
+			
+			return "redirect:/luogo/"+luogoSalvata.getId();
+		}
+
+		return "luogoEditForm.html";
+	}
 }
