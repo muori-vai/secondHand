@@ -15,12 +15,16 @@ import com.siw.secondHand.controller.validator.UserValidator;
 import com.siw.secondHand.model.Credentials;
 import com.siw.secondHand.model.User;
 import com.siw.secondHand.service.CredentialsService;
+import com.siw.secondHand.service.LuogoService;
 
 @Controller
 public class AuthenticationController {
 
 	@Autowired
 	private CredentialsService credentialsService;
+	
+	@Autowired
+	private LuogoService luogoService;
 
 	@Autowired
 	private UserValidator userValidator;
@@ -32,6 +36,7 @@ public class AuthenticationController {
 	public String showRegisterForm(Model model) {
 		model.addAttribute("user", new User());
 		model.addAttribute("credentials", new Credentials());
+		model.addAttribute("luogos", this.luogoService.findAll());
 		return "registerUser";
 	}
 
@@ -50,16 +55,19 @@ public class AuthenticationController {
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 		model.addAttribute("nome", credentials.getUser().getNome());
-		
+		//purtroppo senza questo l'autenticazione non va via e quindi il logout non funziona (anche se dovrebbe essere automatico)
 		SecurityContextHolder.getContext().setAuthentication(null);
+		
 		return "goodbye";
 	}
 	
+	//pagina per confermare di voler uscire dall'account
 	@RequestMapping(value = "/askLogout", method = RequestMethod.GET)
 	public String showLogout(Model model) {
 		return "askLogout.html";
 	}
 
+	//precedentemente /default, pagina dopo un login di successo
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String defaultAfterLogin(Model model) {
 		return "home";
@@ -83,6 +91,8 @@ public class AuthenticationController {
 			credentialsService.saveCredentials(credentials);
 			return "registrationSuccessful";
 		}
+		
+		model.addAttribute("luogos", this.luogoService.findAll());
 		return "registerUser";
 	}
 }

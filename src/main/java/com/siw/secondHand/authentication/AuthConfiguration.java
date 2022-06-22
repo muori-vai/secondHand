@@ -40,8 +40,10 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/", "/index", "/login", "/login-error", "logout", "/register", "/css/**", "/images/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/login", "/register").permitAll()
+                //DEFAULT può inserire, modificare e cancellare i propri prodotti, ADMIN lo può fare anche se non è un suo prodotto
                 .antMatchers(HttpMethod.GET, "/prodotto/**", "/user/**", "/categoria/**", "/sottocategoria/**", "/luogo/**", "/user/**").hasAnyAuthority(DEFAULT_ROLE, ADMIN_ROLE)
                 .antMatchers(HttpMethod.POST, "/prodotto").hasAnyAuthority(DEFAULT_ROLE, ADMIN_ROLE)
+                //ADMIN può modificare, cancellare ed inserire nuove categorie, sottocategorie e luoghi
                 .antMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(ADMIN_ROLE)
                 .antMatchers(HttpMethod.POST, "/admin/**", "/categoria", "/sottocategoria", "/luogo").hasAnyAuthority(ADMIN_ROLE)
                 .anyRequest().authenticated()
@@ -54,7 +56,7 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 //per gestire errori nel login
                 .failureUrl("/login-error")
-                // se il login ha successo, si viene rediretti al path /default
+                // se il login ha successo, si viene rediretti al path /home
                 .defaultSuccessUrl("/home")
                 
                 // logout paragraph: qui definiamo il logout

@@ -7,11 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "users") // cambiamo nome perché in postgres user è una parola riservata
+@Table(name = "users") // in Postgres, User è una parola riservata
 public class User {
 	
 	@Id
@@ -19,6 +22,11 @@ public class User {
 	private Long id;
 	private String nome;
 	private String cognome;
+
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "luogo_id")
+	private Luogo luogo;
 	
 	@OneToMany(mappedBy="user", cascade={CascadeType.ALL})
 	private List<Prodotto> prodottos;
@@ -53,6 +61,14 @@ public class User {
 
 	public void setProdottos(List<Prodotto> prodottos) {
 		this.prodottos = prodottos;
+	}
+
+	public Luogo getLuogo() {
+		return luogo;
+	}
+
+	public void setLuogo(Luogo luogo) {
+		this.luogo = luogo;
 	}
 
 }

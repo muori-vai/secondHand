@@ -19,7 +19,7 @@ public class SottocategoriaService {
 
 	@Transactional
 	public Sottocategoria save(Sottocategoria sottocategoria) {
-		return sottocategoriaRepository.save(sottocategoria); // dopo aver salvato, ritorna la sottocategoria salvata
+		return sottocategoriaRepository.save(sottocategoria);
 	}
 
 	@Transactional

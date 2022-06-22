@@ -21,12 +21,20 @@
 			<div th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}">
 			</div>
 		</div>
-
+		<fieldset>
+			<div th:if="${#fields.hasErrors('luogo')}" th:errors="*{luogo}">
+			</div>
+			<legend>Seleziona Luogo</legend>
+			<div th:each="luogo: ${luogos}">
+				<input type="radio" id="${luogos}" th:field="*{luogo}" name="luogo" th:value="${luogo.id}" />
+				<label for="${luogos}" th:text="${luogo.nome}">nome luogo</label>
+			</div>
+		</fieldset>
 		<div>
 			<button type="submit">Conferma</button>
 		</div>
 	</form>
-	
+
 	<a href="index.html" th:href="@{/}">Torna indietro
 	</a>
 </body>

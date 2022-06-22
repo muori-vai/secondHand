@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Sottocategoria {
@@ -28,6 +29,7 @@ public class Sottocategoria {
 	@OneToMany(mappedBy="sottocategoria", cascade={CascadeType.REMOVE})
 	private List<Prodotto> prodottos;
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name="categoria_id", nullable=false)
 	private Categoria categoria;

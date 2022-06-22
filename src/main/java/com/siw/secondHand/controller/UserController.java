@@ -19,6 +19,7 @@ import com.siw.secondHand.controller.validator.UserValidator;
 import com.siw.secondHand.model.Credentials;
 import com.siw.secondHand.model.User;
 import com.siw.secondHand.service.CredentialsService;
+import com.siw.secondHand.service.LuogoService;
 import com.siw.secondHand.service.UserService;
 
 @Controller
@@ -26,6 +27,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private LuogoService luogoService;
 	
 	@Autowired
 	private CredentialsService credentialsService;
@@ -116,6 +120,7 @@ public class UserController {
 		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 		User currentUser = credentials.getUser();
 		if (user.equals(currentUser)) {
+			model.addAttribute("luogos", this.luogoService.findAll());
 			return "userEditForm.html";
 		}
 		return "unauthorized.html";
@@ -134,6 +139,7 @@ public class UserController {
 
 			vecchioUser.setNome(user.getNome());
 			vecchioUser.setCognome(user.getCognome());
+			vecchioUser.setLuogo(user.getLuogo());
 			
 			User userSalvato = this.userService.saveUser(vecchioUser);
 		
@@ -142,6 +148,7 @@ public class UserController {
 			return "redirect:/user/"+userSalvato.getId();
 		}
 
+		model.addAttribute("luogos", this.luogoService.findAll());
 		return "userEditForm.html";
 	}
 }

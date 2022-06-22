@@ -24,24 +24,25 @@ public class Prodotto {
 	@NotBlank
 	private String descrizione;
 
+	// per ora considero Categoria, forse più avanti lo levo in quanto ridondante
 	@NotNull
-	@ManyToOne//(cascade = { CascadeType.ALL })
-	@JoinColumn(name="categoria_id")
+	@ManyToOne // (cascade = { CascadeType.ALL })
+	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
-	
+
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name="sottocategoria_id")
+	@JoinColumn(name = "sottocategoria_id")
 	private Sottocategoria sottocategoria;
-	
-	@NotNull
+
 	@ManyToOne
-	@JoinColumn(name="luogo_id")
-	private Luogo luogo;
-	
-	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name = "user_id")
 	private User user;
+	
+//	@NotNull
+//	@ManyToOne
+//	@JoinColumn(name = "luogo_id")
+//	private Luogo luogo;
 
 	@Column(nullable = true, length = 64)
 	private String foto;
@@ -81,8 +82,8 @@ public class Prodotto {
 	public String getFotoImagePath() {
 		if (foto == null || id == null)
 			return null;
-		//si potrebbe fare un return "/generic-foto/prodotto" 
-		
+		// si potrebbe fare un return "/generic-foto/prodotto"
+
 		return "/prodotto-foto/" + id + "/" + foto;
 	}
 
@@ -102,17 +103,9 @@ public class Prodotto {
 		this.sottocategoria = sottocategoria;
 	}
 
-	public Luogo getLuogo() {
-		return luogo;
-	}
-
-	public void setLuogo(Luogo luogo) {
-		this.luogo = luogo;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(categoria, descrizione, foto, luogo, nome, sottocategoria);
+		return Objects.hash(categoria, descrizione, foto, nome, sottocategoria);
 	}
 
 	@Override
@@ -125,8 +118,8 @@ public class Prodotto {
 			return false;
 		Prodotto other = (Prodotto) obj;
 		return Objects.equals(categoria, other.categoria) && Objects.equals(descrizione, other.descrizione)
-				&& Objects.equals(foto, other.foto) && Objects.equals(luogo, other.luogo)
-				&& Objects.equals(nome, other.nome) && Objects.equals(sottocategoria, other.sottocategoria);
+				&& Objects.equals(foto, other.foto) && Objects.equals(nome, other.nome)
+				&& Objects.equals(sottocategoria, other.sottocategoria);
 	}
 
 	public User getUser() {
@@ -136,4 +129,12 @@ public class Prodotto {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+//	public Luogo getLuogo() {
+//		return luogo;
+//	}
+//
+//	public void setLuogo(Luogo luogo) {
+//		this.luogo = luogo;
+//	}
 }

@@ -12,6 +12,8 @@
 		</div>
 		<div th:text="${user.cognome}">
 		</div>
+		<div th:text="${user.luogo.nome}">
+		</div>
 		<div th:each="prodotto: ${user.prodottos}">
 			<div th:text="${prodotto.nome}">
 			</div>

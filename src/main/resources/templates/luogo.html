@@ -12,12 +12,12 @@
 		</div>
 
 		<div>
-			Prodotti di questo luogo:
+			Utenti di questo luogo:
 		</div>
 		<br>
 
-		<div th:each="prodotto: ${luogo.prodottos}">
-			<div th:text="${prodotto.nome}">
+		<div th:each="user: ${luogo.users}">
+			<div th:text="${user.nome}">
 			</div>
 		</div>
 

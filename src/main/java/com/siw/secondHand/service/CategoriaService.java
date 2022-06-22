@@ -19,14 +19,14 @@ public class CategoriaService {
 
 	@Transactional
 	public Categoria save(Categoria categoria) {
-		return categoriaRepository.save(categoria); //dopo aver salvato, ritorna la categoria salvata
+		return categoriaRepository.save(categoria); // dopo aver salvato, ritorna la categoria salvata
 	}
-	
+
 	@Transactional
 	public void delete(Categoria categoria) {
 		categoriaRepository.delete(categoria);
 	}
-	
+
 	@Transactional
 	public void deleteById(Long id) {
 		categoriaRepository.deleteById(id);
@@ -35,17 +35,17 @@ public class CategoriaService {
 	public Categoria findById(Long id) {
 		return categoriaRepository.findById(id).get();
 	}
-	
+
 	public List<Categoria> findAll() {
 		List<Categoria> categorias = new ArrayList<Categoria>();
-		
-		for(Categoria c: categoriaRepository.findAll()) {
+
+		for (Categoria c : categoriaRepository.findAll()) {
 			categorias.add(c);
 		}
-		
+
 		return categorias;
 	}
-	
+
 	public boolean alreadyExists(Categoria categoria) {
 		return categoriaRepository.existsByNomeAndDescrizione(categoria.getNome(), categoria.getDescrizione());
 	}

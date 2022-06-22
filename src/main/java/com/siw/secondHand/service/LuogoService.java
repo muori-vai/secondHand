@@ -19,7 +19,7 @@ public class LuogoService {
 
 	@Transactional
 	public Luogo save(Luogo luogo) {
-		return luogoRepository.save(luogo); //dopo aver salvato, ritorna la luogo salvata
+		return luogoRepository.save(luogo);
 	}
 	
 	@Transactional

@@ -5,11 +5,14 @@ import java.nio.file.*;
 
 import org.springframework.web.multipart.MultipartFile;
 
+// classe ausiliaria per l'upload delle foto
 public class FileUploadUtil {
 
 	public static void saveFile(String uploadDir, String fileName, MultipartFile multipartFile) throws IOException {
+		//Path directory dove salvare le foto (vedi addProdotto() di ProdottoController)
 		Path uploadPath = Paths.get(uploadDir);
 
+		// se non esiste, crea una cartella dove mettere le foto
 		if (!Files.exists(uploadPath)) {
 			Files.createDirectories(uploadPath);
 		}

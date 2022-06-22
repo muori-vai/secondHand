@@ -23,6 +23,8 @@
 		</div>
 
 		<fieldset>
+			<div th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}">
+			</div>
 			<legend>Seleziona Categoria</legend>
 			<div th:each="categoria: ${categorias}">
 				<!-- type="radio": una sola scelta; type="checkbox": più scelte-->

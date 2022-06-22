@@ -46,6 +46,7 @@ public class SottocategoriaController {
 			return "redirect:/sottocategoria/"+sottocategoriaSalvata.getId();
 		}
 
+		model.addAttribute("categorias", this.categoriaService.findAll());
 		return "sottocategoriaForm.html";
 	}
 
@@ -97,7 +98,7 @@ public class SottocategoriaController {
 	@GetMapping("admin/sottocategoria/edit/form/{id}")
 	public String editSottocategoriaForm(@PathVariable Long id, Model model) {
 		model.addAttribute("sottocategoria", sottocategoriaService.findById(id));
-		model.addAttribute("sottocategorias", this.categoriaService.findAll());
+		model.addAttribute("categorias", this.categoriaService.findAll());
 		
 		return "sottocategoriaEditForm.html";
 	}
@@ -115,6 +116,7 @@ public class SottocategoriaController {
 
 			vecchiaSottocategoria.setNome(sottocategoria.getNome());
 			vecchiaSottocategoria.setDescrizione(sottocategoria.getDescrizione());
+			vecchiaSottocategoria.setCategoria(sottocategoria.getCategoria());
 			
 			Sottocategoria sottocategoriaSalvata = this.sottocategoriaService.save(vecchiaSottocategoria);
 		
@@ -123,7 +125,7 @@ public class SottocategoriaController {
 			return "redirect:/sottocategoria/"+sottocategoriaSalvata.getId();
 		}
 		
-		model.addAttribute("sottocategorias", this.categoriaService.findAll());
+		model.addAttribute("categorias", this.categoriaService.findAll());
 		
 		return "sottocategoriaEditForm.html";
 	}

@@ -19,7 +19,9 @@ public class ProdottoService {
 
 	@Transactional
 	public Prodotto save(Prodotto prodotto) {
-		return prodottoRepository.save(prodotto); // dopo aver salvato, ritorna il prodotto salvato
+		return prodottoRepository.save(prodotto); // dopo aver salvato, ritorna il prodotto salvato (avrebbe risolto un
+													// sacco di problemi su Catering, avrei potuto omettere il pulsante
+													// indietro)
 	}
 
 	@Transactional
@@ -47,10 +49,13 @@ public class ProdottoService {
 	}
 
 	public boolean alreadyExists(Prodotto prodotto) {
-		return prodottoRepository.existsByNomeAndDescrizioneAndCategoriaAndSottocategoriaAndLuogoAndFoto(prodotto.getNome(),
-				prodotto.getDescrizione(), prodotto.getCategoria(), prodotto.getSottocategoria(), prodotto.getLuogo(), prodotto.getFoto());
+		return prodottoRepository.existsByNomeAndDescrizioneAndFotoAndUserAndCategoriaAndSottocategoria(
+				prodotto.getNome(), prodotto.getDescrizione(), prodotto.getFoto(), prodotto.getUser(),
+				prodotto.getCategoria(), prodotto.getSottocategoria());
 	}
 
+	// si ha quando si inserisce un prodotto scegliendo una sottocategoria che non
+	// fa parte della categoria scelta
 	public boolean illegalSottocategoria(Prodotto prodotto) {
 		if (prodotto.getCategoria() == null || prodotto.getSottocategoria() == null)
 			return false; // ci pensa poi il NotNull a dare il warning
