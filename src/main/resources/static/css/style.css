@@ -1,0 +1,131 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	--color1: #ffcdb2;
+	--color1rgb: 255, 205, 178;
+	--color2: #ffb4a2;
+	--color2rgb: 255, 180, 162;
+	--color3: #e5989b;
+	--color3rgb: 229, 152, 155;
+	--color4: #b5838d;
+	--color4rgb: 181, 131, 141;
+	--color5: #6d6875;
+	--color5rgb: 109, 104, 117;
+}
+
+body {
+	background-color: var(--color4);
+	/*padding-top: 5em;*/
+}
+
+.flex {
+	display: flex;
+	/* definisco la variabile gap dove serve */
+	gap: var(--gap, 1rem);
+}
+
+.navbar-container {
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+}
+.navbar-container a {
+	text-decoration: none;
+} /* logo dentro il navbar (a sinistra) */
+.logo {
+	margin: 2rem;
+} /* lista di pulsanti dentro il navbar (a destra) */ 
+.navbar-list {
+	list-style: none; /* per togliere i punti prima di ogni elemento di una lista */
+	background: hsl(0 0% 100% / .1);
+	backdrop-filter: blur(1rem);
+	transition: .3s;
+	padding: 1rem;
+	/* clamp(min, valoreIdeale, max) -- vw: viewport width */
+	--gap: clamp(.1rem, 5vw, 5rem); /* così la distanza tra i pulsanti varia in base alla larghezza della pagina */
+} /* per mettere un po' di spazio tra il margine e l'ultimo pulsante */
+.navbar-list:nth-last-child(1) {
+	padding-right: min(3vw, 3rem);
+}
+.navbar-toggle-mobile {
+	position: fixed;
+	top: 2rem;
+	right: 2rem;
+	width: 30px;
+	height: 4px;
+	background: var(--color1);
+	border-radius: 10px;
+	z-index: 5;
+	transition: .3s;
+} /* queste sono le linee sopra e sotto, così non devo usare un'immagine per l'icona del nav */
+.navbar-toggle-mobile:before, .navbar-toggle-mobile:after {
+	content: "";
+	position: absolute;
+	height: 4px;
+	right: 0;
+	background: var(--color1);
+	border-radius: inherit;
+	transition: inherit;
+}
+.navbar-toggle-mobile:before {
+	top: -10px;
+	width: 20px;
+}
+.navbar-toggle-mobile:after {
+	top: 10px;
+	width: 25px;
+} /* questo è per il checkbox, quando è attivo fa vedere il nav */
+.navbar-toggle-button {
+	position: fixed;
+	top: 1.1rem; /* valori strani che permettono al checkbox di sovrapporre completamente l'"icona" */
+	right: 1.9rem;
+	width: 30px;
+	height: 30px;
+	z-index: 6;
+	cursor: pointer; /* serve semplicemente per trasformare il cursore in un puntatore quando ci passa sopra */
+	opacity: 0;
+}
+.navbar-toggle-button,
+.navbar-toggle-mobile {
+	display: none; /* per nascondere il pulsante quando lo schermo è grande */
+}
+.navbar-container input:checked ~ .navbar-toggle-mobile {
+	background: transparent; /* così la linea centrale diventa invisibile */
+} /* trasformano le linee sopra e sotto in una x quando il checkbox è attivo */
+.navbar-container input:checked ~ .navbar-toggle-mobile:before {
+	top: 0;
+	transform: rotate(-225deg);
+	width: 30px;
+}
+.navbar-container input:checked ~ .navbar-toggle-mobile:after {
+	top: 0;
+	transform: rotate(225deg);
+	width: 30px;
+}
+.navbar-container input:checked ~ .navbar-list {
+	/* così la lista è "toccabile" solo quando il checkbox è attivo */
+	visibility: visible;
+	opacity: 1;
+	right: 0;
+}
+@media screen and (max-width: 46em) {
+	.navbar-toggle-mobile, 
+	.navbar-toggle-button {
+		display: block;
+	}
+	.navbar-list {
+		visibility: hidden; /* in realtà non serve per perché c'è il right che sposta la lista fuori dalla pagina */
+		opacity: 0;
+		position: fixed;
+		right: -200px; /* */
+		top: 0;
+		height: 100%;
+		/*inset: 0 0 0 30%;*/
+		z-index: 4;
+		--gap: 2em; /* visto che ha anche la classe flex, utlizzo gap */
+		flex-direction: column;
+		padding: min(30vh, 10rem) 2em;
+	}
+}
+

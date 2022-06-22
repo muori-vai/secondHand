@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="header(title)">
+	<meta charset="UTF-8" />
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+	<title th:text="${title}"></title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Caveat&family=Fjalla+One&family=Pacifico&display=swap"
+		rel="stylesheet">
+	<!--<link rel="icon" href="images/.png" type="image/x-icon">-->
+</head>
+
+<body>
+	<!-- Versione senza lista <nav class="navbar" th:fragment="nav">
+		<div class="navbar-logo">
+			<div class="navbar-title">
+				<a href="index.html" th:href="@{/}">Secondhand</a>
+			</div>
+		</div>
+		<div class="navbar-navigation">
+			<div class="navbar-button">
+				<a href="home.html" th:href="@{/home}" th:text="Home">Home</a>
+			</div>
+			<div class="navbar-navigation">
+				<a href="categorias.html" th:href="@{/categoria/all}">Categorie</a>
+			</div>
+			<div class="navbar-navigation">
+				<a href="luogos.html" th:href="@{/luogo/all}">Luoghi</a>
+			</div>
+			<div class="navbar-navigation">
+				<a href="user.html" th:href="@{/user/profile}">Profilo</a>
+			</div>
+			<div class="navbar-navigation">
+				<a th:href="@{/user/all}">Utenti</a>
+			</div>
+			<div class="navbar-navigation">
+				<a href="askLogout.html" th:href="@{/askLogout}">Esci</a>
+			</div>
+		</div>
+	</nav>-->
+
+	<div th:fragment="navbar" class="navbar-container flex">
+		<a class="logo" href="index.html" th:href="@{/}">Secondhand</a>
+		<nav>
+			<input type="checkbox" class="navbar-toggle-button" />
+			<div class="navbar-toggle-mobile">
+			</div>
+
+			<ul class="navbar-list flex">
+				<li>
+					<a href="home.html" th:href="@{/home}">HOME</a>
+				</li>
+				<li>
+					<a href="categorias.html" th:href="@{/categoria/all}">CATEGORIE</a>
+				</li>
+				<li>
+					<a href="luogos.html" th:href="@{/luogo/all}">LUOGHI</a>
+				</li>
+				<li>
+					<a href="user.html" th:href="@{/user/profile}">PROFILO</a>
+				</li>
+				<li>
+					<a th:href="@{/user/all}">UTENTI</a>
+				</li>
+				<li>
+					<a href="askLogout.html" th:href="@{/askLogout}">ESCI</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+
+
+
+
+
+	<footer th:fragment="footer">
+		<div>Contatti: <a href="mailto:*******.*********@gmail.com">*******.*********@gmail.com</a>; 351 *** **** |
+			© 2022 |
+			Secondhand Shop - Tutti i diritti riservati |
+			Sito web realizzato con creatività e passione da ******* *********</div>
+	</footer>
+</body>
+
+</html>

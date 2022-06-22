@@ -1,0 +1,144 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	--color1: #ffcdb2;
+	--color1rgb: 255, 205, 178;
+	--color2: #ffb4a2;
+	--color2rgb: 255, 180, 162;
+	--color3: #e5989b;
+	--color3rgb: 229, 152, 155;
+	--color4: #b5838d;
+	--color4rgb: 181, 131, 141;
+	--color5: #6d6875;
+	--color5rgb: 109, 104, 117;
+}
+
+body {
+	background-color: var(--color4);
+	/*padding-top: 5em;*/
+}
+
+.flex {
+	display: flex;
+	/* definisco la variabile gap dove serve */
+	gap: var(--gap, 1rem);
+}
+
+.navbar-container {
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+}
+.navbar-container a {
+	text-decoration: none;
+} /* logo dentro il navbar (a sinistra) */
+.logo {
+	margin: 2rem;
+} /* lista di pulsanti dentro il navbar (a destra) */ 
+.navbar-list {
+	list-style: none; /* per togliere i punti prima di ogni elemento di una lista */
+	background: hsl(0 0% 100% / .1);
+	backdrop-filter: blur(1rem);
+} .navbar-toggle-mobile {
+	display: none; /* sennò rimane un puntino */
+} /* In modo da rendere responsive il navbar quando rimpicciolisco il window */
+@media (max-width: 35em) {
+	.navbar-list {
+		position: fixed;
+		inset: 0 0 0 30%;
+		z-index: 5;
+		
+		--gap: 2em;
+		
+		flex-direction: column;
+		padding: min(30vh, 10rem) 2em;
+	}
+	
+	.navbar-toggle-mobile {
+		display: block;
+		position: absolute;
+		z-index: 10;
+		cursor: pointer;
+		width: 30px;
+		height: 4px;
+		background: var(--color1);
+		border-radius: 10px;
+		border: 0;
+		top: 2rem;
+		right: 2rem;
+		transition: .3s;
+	}
+	.navbar-toggle-mobile:before, .navbar-toggle-mobile:after {
+		content: ""; /* purtroppo serve sempre metterlo quando si tratta di pseudo-elementi */
+		position: absolute;
+		height: 4px;
+		right: 0;
+		background: var(--color1);
+		border-radius: 10px;
+		transition: .3s;
+	}
+	.navbar-toggle-mobile:before {
+		top: -10px;
+		width: 20px;
+	}
+	.navbar-toggle-mobile:after {
+		top: 10px;
+		width: 25px;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*nav.navbar {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: fit-content;
+	display: flex;
+	align-items: center;
+	background-color: var(--color5);
+	font-size: 1.5em;
+	padding: .5em;
+	z-index: 5;
+	line-height: 1.5em;
+}
+nav.navbar .navbar-logo {
+	display: flex;
+	justify-content: left;
+	width: 40%;
+	padding-left: 5%;
+}
+nav.navbar .navbar-navigation {
+	display: flex;
+	justify-content: space-evenly;
+	width: 60%;
+	flex-wrap: wrap;
+}
+nav.navbar a {
+	text-decoration: none;
+	background-color: var(--color4);
+	border-radius: 20px;
+	color: var(--color3);
+	padding: .1em .5em;
+}
+nav.navbar a:hover {
+	color: var(--color1);
+}
+*/
+
+
+
+
+
+
+

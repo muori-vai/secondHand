@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-	<meta charset="UTF-8" />
-	<title>Categorie</title>
+<head th:replace="fragments/common.html :: header(title='Categorie')">
 </head>
 
 <body>
+	
+	<nav th:replace="fragments/common.html :: nav">
+	</nav>
+
 	<div th:each="categoria: ${categorias}">
 		<div th:text="${categoria.nome}">
 		</div>
 		<a href="categoria.html" th:href="@{'/categoria/'+${categoria.id}}" th:text="dettagli">
 		</a>
 	</div>
-	
-	<a href="index.html" th:href="@{/}">Torna indietro
-	</a>
+
+	<a th:href="@{/admin/categoria/form}">Nuova categoria</a>
+	<a th:href="@{/admin/sottocategoria/form}">Nuova sottocategoria</a>
 </body>
 
 </html>

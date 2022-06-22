@@ -14,13 +14,11 @@
 		</div>
 		<div th:text="${prodotto.categoria.nome}">
 		</div>
-		<div th:text="${prodotto.luogo.nome}">
-		</div>
-
 		<div th:text="${prodotto.sottocategoria.nome}">
 		</div>
-
 		<div th:text="${prodotto.user.nome}">
+		</div>
+		<div th:text="${prodotto.user.luogo.nome}">
 		</div>
 		<img th:src="@{${prodotto.fotoImagePath}}" />
 
