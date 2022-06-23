@@ -7,8 +7,7 @@
 	<title th:text="${title}"></title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Caveat&family=Fjalla+One&family=Pacifico&display=swap"
-		rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Sriracha&display=swap" rel="stylesheet">
 	<!--<link rel="icon" href="images/.png" type="image/x-icon">-->
 </head>
 
@@ -53,6 +52,9 @@
 					<a href="home.html" th:href="@{/home}">HOME</a>
 				</li>
 				<li>
+					<a href="prodottos.html" th:href="@{/prodotto/all}">PRODOTTI</a>
+				</li>
+				<li>
 					<a href="categorias.html" th:href="@{/categoria/all}">CATEGORIE</a>
 				</li>
 				<li>
@@ -62,7 +64,7 @@
 					<a href="user.html" th:href="@{/user/profile}">PROFILO</a>
 				</li>
 				<li>
-					<a th:href="@{/user/all}">UTENTI</a>
+					<a href="users.html" th:href="@{/user/all}">UTENTI</a>
 				</li>
 				<li>
 					<a href="askLogout.html" th:href="@{/askLogout}">ESCI</a>

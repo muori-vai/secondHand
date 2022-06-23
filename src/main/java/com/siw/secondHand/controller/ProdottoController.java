@@ -192,7 +192,6 @@ public class ProdottoController {
 		Prodotto prodotto = prodottoService.findById(id);
 		model.addAttribute("prodotto", prodotto);
 		model.addAttribute("categorias", this.categoriaService.findAll());
-		model.addAttribute("luogos", this.luogoService.findAll());
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 		User currentUser = credentials.getUser();
@@ -235,7 +234,6 @@ public class ProdottoController {
 		}
 		
 		model.addAttribute("categorias", this.categoriaService.findAll());
-		model.addAttribute("luogos", this.luogoService.findAll());
 
 		return "prodottoEditForm.html";
 	}

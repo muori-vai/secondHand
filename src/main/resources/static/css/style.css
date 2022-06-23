@@ -2,20 +2,28 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
-	--color1: #ffcdb2;
-	--color1rgb: 255, 205, 178;
-	--color2: #ffb4a2;
-	--color2rgb: 255, 180, 162;
-	--color3: #e5989b;
-	--color3rgb: 229, 152, 155;
-	--color4: #b5838d;
-	--color4rgb: 181, 131, 141;
-	--color5: #6d6875;
-	--color5rgb: 109, 104, 117;
+	--color1: #006d77;
+	--color1rgb: 0, 109, 119;
+	--color2: #83c5be;
+	--color2rgb: 131, 197, 190;
+	--color3: #edf6f9;
+	--color3rgb: 237, 246, 249;
+	--color4: #ffddd2;
+	--color4rgb: 255, 221, 210;
+	--color5: #e29578;
+	--color5rgb: 226, 149, 120;
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
 }
 
 body {
-	background-color: var(--color4);
+	background-color: var(--color3);
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	color: var(--color1);
 	/*padding-top: 5em;*/
 }
 
@@ -29,24 +37,29 @@ body {
 	width: 100%;
 	align-items: center;
 	justify-content: space-between;
+	font-size: 1.5rem;
 }
 .navbar-container a {
 	text-decoration: none;
 } /* logo dentro il navbar (a sinistra) */
 .logo {
 	margin: 2rem;
+	font-family: 'Sriracha', cursive;
+	font-size: 2em;
 } /* lista di pulsanti dentro il navbar (a destra) */ 
 .navbar-list {
 	list-style: none; /* per togliere i punti prima di ogni elemento di una lista */
-	background: hsl(0 0% 100% / .1);
+	background: rgba(var(--color1rgb), .5) /*hsl(0 0% 100% / .1)*/;
 	backdrop-filter: blur(1rem);
 	transition: .3s;
 	padding: 1rem;
-	/* clamp(min, valoreIdeale, max) -- vw: viewport width */
-	--gap: clamp(.1rem, 5vw, 5rem); /* così la distanza tra i pulsanti varia in base alla larghezza della pagina */
-} /* per mettere un po' di spazio tra il margine e l'ultimo pulsante */
+	/* clamp(min, ideale, max) -- vw: viewport width */
+	/* --gap: clamp(.5rem, 5vw, 5rem) */ /* così la distanza tra i pulsanti varia in base alla larghezza della pagina */
+	--gap: 2rem;
+	flex-wrap: wrap;
+}
 .navbar-list:nth-last-child(1) {
-	padding-right: min(3vw, 3rem);
+	padding-right: min(3vw, 3rem); /* per mettere un po' di spazio tra il margine e l'ultimo pulsante */
 }
 .navbar-toggle-mobile {
 	position: fixed;
@@ -109,7 +122,7 @@ body {
 	opacity: 1;
 	right: 0;
 }
-@media screen and (max-width: 46em) {
+@media screen and (max-width: 49em) {
 	.navbar-toggle-mobile, 
 	.navbar-toggle-button {
 		display: block;
@@ -125,7 +138,43 @@ body {
 		z-index: 4;
 		--gap: 2em; /* visto che ha anche la classe flex, utlizzo gap */
 		flex-direction: column;
-		padding: min(30vh, 10rem) 2em;
+		flex-wrap: nowrap; /* sennò scompaiono i pulsanti (vanno fuori lo schermo) */
+		padding: min(30vh, 10rem) 1em;
+		overflow: auto; /* da vedere se diventa un problema dopo */
 	}
 }
+
+.grid-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 250px);
+	padding: .8em;
+	gap: 1em;
+	margin: 2em 5em;
+}
+
+.grid {
+	/*border: solid .2em var(--color5);*/
+	background-color: rgba(var(--color2rgb), .5);
+	
+	box-shadow: -10px -10px 25px rgba(0, 0, 0, 0.5);
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 1em;
+	transition: 0.2s ease-out;
+	/*opacity: .75;*/
+}
+.grid:hover {
+	opacity: 1;
+	transform: scale(1.1);
+}
+
+.product-image {
+	height: 300px;
+	width: 250px;
+	object-fit: cover;
+}
+
+
 

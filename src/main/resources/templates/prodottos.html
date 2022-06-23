@@ -1,21 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-	<meta charset="UTF-8" />
-	<title>Prodotti</title>
+<head th:replace="fragments/common.html :: header(title='Prodotti')">
 </head>
 
+
 <body>
-	<div th:each="prodotto: ${prodottos}">
-		<div th:text="${prodotto.nome}">
-		</div>
-		<a href="prodotto.html" th:href="@{'/prodotto/'+${prodotto.id}}" th:text="dettagli">
-		</a>
+	<div th:replace="fragments/common.html :: navbar">
 	</div>
-	
-	<a href="index.html" th:href="@{/}">Torna indietro
-	</a>
+
+	<div class="grid-container">
+		<div class="grid">
+			<a th:href="@{/prodotto/form}">Inserisci prodotto</a>
+		</div>
+		<div class="grid" th:each="prodotto: ${prodottos}">
+			<div th:text="${prodotto.nome}">
+			</div>
+			<div th:if="${prodotto.fotoImagePath}">
+				<img class="product-image" th:src="@{${prodotto.fotoImagePath}}" />
+			</div>
+			<div th:unless="${prodotto.fotoImagePath}">
+				Nessuna foto disponibile
+			</div>
+			<a href="prodotto.html" th:href="@{'/prodotto/'+${prodotto.id}}" th:text="dettagli">
+			</a>
+		</div>
+	</div>
+
 </body>
 
 </html>

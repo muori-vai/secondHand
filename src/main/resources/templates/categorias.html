@@ -5,9 +5,8 @@
 </head>
 
 <body>
-	
-	<nav th:replace="fragments/common.html :: nav">
-	</nav>
+	<div th:replace="fragments/common.html :: navbar">
+	</div>
 
 	<div th:each="categoria: ${categorias}">
 		<div th:text="${categoria.nome}">

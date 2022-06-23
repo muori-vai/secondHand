@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-	<meta charset="UTF-8" />
-	<title>Utenti</title>
+<head th:replace="fragments/common.html :: header(title='Utenti')">
 </head>
 
 <body>
+	<div th:replace="fragments/common.html :: navbar">
+	</div>
+
 	<div th:each="user: ${users}">
 		<div th:text="${user.nome}">
 		</div>
