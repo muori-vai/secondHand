@@ -8,28 +8,43 @@
 	<div th:replace="fragments/common.html :: navbar">
 	</div>
 
-	<div th:if="${user}">
-		<div th:text="${user.nome}">
+
+
+	<div class="flex-column" th:if="${user}">
+		<div class="flex-column bg2">
+			<div class="flex title">
+				<div th:text="${user.nome}+' '+${user.cognome}">
+				</div>
+				<div>
+					<a th:href="@{'/luogo/'+${user.luogo.id}}" th:text="'('+${user.luogo.nome}+')'"></a>
+				</div>
+			</div>
+			<div th:if="(${user.id}==${currentUserId}) OR (${#authorization.expression('hasAuthority(''ADMIN'')')})">
+				<a th:href="@{'/user/edit/form/'+${user.id}}">Modifica Utente</a>
+			</div>
+
 		</div>
-		<div th:text="${user.cognome}">
-		</div>
-		<div th:text="${user.luogo.nome}">
-		</div>
-		<div th:each="prodotto: ${user.prodottos}">
-			<div th:text="${prodotto.nome}">
+
+		<div class="grid-container">
+			<div class="grid center" th:each="prodotto: ${user.prodottos}">
+				<a class="grid-button" href="prodotto.html" th:href="@{'/prodotto/'+${prodotto.id}}">
+				</a>
+				<div th:if="${prodotto.fotoImagePath}">
+					<img class="product-image" th:src="@{${prodotto.fotoImagePath}}" />
+				</div>
+				<div th:unless="${prodotto.fotoImagePath}">
+					<div class="product-image flex center">Nessuna foto disponibile
+					</div>
+				</div>
+				<div class="title2" th:text="${prodotto.nome}">
+				</div>
 			</div>
 		</div>
-		
-		<a th:href="@{'/user/edit/form/'+${user.id}}">Modifica Utente</a>
-		
-	</div>
-	
-	<div th:unless="${user}">
-		Quest'Utente non esiste!
 	</div>
 
-	<a href="index.html" th:href="@{/}">Torna indietro
-	</a>
+	<div th:unless="${user}">
+		Questa Categoria non esiste!
+	</div>
 </body>
 
 </html>

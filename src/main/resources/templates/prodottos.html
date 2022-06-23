@@ -10,20 +10,27 @@
 	</div>
 
 	<div class="grid-container">
-		<div class="grid">
-			<a th:href="@{/prodotto/form}">Inserisci prodotto</a>
-		</div>
-		<div class="grid" th:each="prodotto: ${prodottos}">
-			<div th:text="${prodotto.nome}">
+		<div class="grid center">
+			<a class="grid-button" th:href="@{/prodotto/form}">
+			</a>
+			<div class="title">Inserisci un tuo prodotto
 			</div>
+		</div>
+		<div class="grid center" th:each="prodotto: ${prodottos}">
+			<a class="grid-button" href="prodotto.html" th:href="@{'/prodotto/'+${prodotto.id}}">
+			</a>
+			
 			<div th:if="${prodotto.fotoImagePath}">
 				<img class="product-image" th:src="@{${prodotto.fotoImagePath}}" />
 			</div>
 			<div th:unless="${prodotto.fotoImagePath}">
-				Nessuna foto disponibile
+				<div class="product-image flex center">Nessuna foto disponibile
+				</div>
 			</div>
-			<a href="prodotto.html" th:href="@{'/prodotto/'+${prodotto.id}}" th:text="dettagli">
-			</a>
+			<div class="title" th:text="${prodotto.nome}">
+			</div>
+			<div th:text="${prodotto.user.nome}+' ('+${prodotto.user.luogo.nome}+')'">
+			</div>
 		</div>
 	</div>
 

@@ -5,10 +5,16 @@
 </head>
 
 <body>
+	<div th:replace="fragments/common.html :: navbar">
+	</div>
+
 	<div th:if="${luogo}">
 		<div th:text="${luogo.nome}">
 		</div>
-
+		<div sec:authorize="hasAuthority('ADMIN')">
+			<a th:href="@{'/admin/luogo/edit/form/'+${luogo.id}}">Modifica luogo</a>
+			<a th:href="@{'/admin/luogo/delete/confirm/'+${luogo.id}}">Cancella luogo</a>
+		</div>
 		<div>
 			Utenti di questo luogo:
 		</div>
@@ -18,9 +24,7 @@
 			<div th:text="${user.nome}">
 			</div>
 		</div>
-
-		<a th:href="@{'/admin/luogo/edit/form/'+${luogo.id}}">Modifica luogo</a>
-		<a th:href="@{'/admin/luogo/delete/confirm/'+${luogo.id}}">Cancella luogo</a>
+		
 	</div>
 
 	<div th:unless="${luogo}">

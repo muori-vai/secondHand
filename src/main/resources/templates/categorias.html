@@ -8,15 +8,28 @@
 	<div th:replace="fragments/common.html :: navbar">
 	</div>
 
-	<div th:each="categoria: ${categorias}">
-		<div th:text="${categoria.nome}">
+	<div class="grid-container-fit">
+		<div class="grid-fit" sec:authorize="hasAuthority('ADMIN')">
+			<a class="title" th:href="@{/admin/categoria/form}">Inserisci una nuova categoria</a>
+			<ul class="flex-column">
+				<li>
+					<a th:href="@{/admin/sottocategoria/form}">Inserisci una nuova sottocategoria</a>
+				</li>
+			</ul>
 		</div>
-		<a href="categoria.html" th:href="@{'/categoria/'+${categoria.id}}" th:text="dettagli">
-		</a>
+		<div class="grid-fit" th:each="categoria: ${categorias}">
+			<a class="title" href="categoria.html" th:href="@{'/categoria/'+${categoria.id}}" th:text="${categoria.nome}">
+			</a>
+			<ul class="flex-column">
+				<li th:each="sottocategoria: ${categoria.sottocategorias}">
+					<a class="" href="sottocategoria.html" th:href="@{'/sottocategoria/'+${sottocategoria.id}}"
+						th:text="${sottocategoria.nome}">
+					</a>
+				</li>
+			</ul>
+		</div>
 	</div>
 
-	<a th:href="@{/admin/categoria/form}">Nuova categoria</a>
-	<a th:href="@{/admin/sottocategoria/form}">Nuova sottocategoria</a>
 </body>
 
 </html>

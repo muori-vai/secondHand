@@ -57,7 +57,7 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 //per gestire errori nel login
                 .failureUrl("/login-error")
                 // se il login ha successo, si viene rediretti al path /home
-                .defaultSuccessUrl("/home")
+                .defaultSuccessUrl("/prodotto/all")
                 
                 // logout paragraph: qui definiamo il logout
                 .and().logout()

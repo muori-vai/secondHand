@@ -69,6 +69,11 @@ public class UserController {
 	public String getUser(@PathVariable("id") Long id, Model model) {
 		User user = userService.getUser(id);
 		model.addAttribute("user", user);
+		
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
+		User currentUser = credentials.getUser();
+		model.addAttribute("currentUserId", currentUser.getId());
 
 		return "user.html";
 	}
@@ -119,7 +124,7 @@ public class UserController {
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 		User currentUser = credentials.getUser();
-		if (user.equals(currentUser)) {
+		if (user.equals(currentUser) || credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
 			model.addAttribute("luogos", this.luogoService.findAll());
 			return "userEditForm.html";
 		}

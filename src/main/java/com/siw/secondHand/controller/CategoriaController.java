@@ -1,6 +1,7 @@
 package com.siw.secondHand.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,13 +17,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.siw.secondHand.controller.validator.CategoriaValidator;
 import com.siw.secondHand.model.Categoria;
+import com.siw.secondHand.model.Prodotto;
 import com.siw.secondHand.service.CategoriaService;
+import com.siw.secondHand.service.LuogoService;
 
 @Controller
 public class CategoriaController {
 
 	@Autowired
 	private CategoriaService categoriaService;
+	
+	@Autowired
+	private LuogoService luogoService;
 
 	@Autowired
 	private CategoriaValidator categoriaValidator;
@@ -59,7 +65,30 @@ public class CategoriaController {
 	public String getCategoria(@PathVariable("id") Long id, Model model) {
 		Categoria categoria = categoriaService.findById(id);
 		model.addAttribute("categoria", categoria);
-
+		
+		model.addAttribute("prodottos", categoria.getProdottos());
+		
+		model.addAttribute("luogos", this.luogoService.findAll());
+		
+		return "categoria.html";
+	}
+	
+	@GetMapping("/categoria/{id}/{luogo}")
+	public String getCategoriaConLuogo(@PathVariable("id") Long id, @PathVariable("luogo") String luogo, Model model) {
+		Categoria categoria = categoriaService.findById(id);
+		model.addAttribute("categoria", categoria);
+		
+		List<Prodotto> prodottos = new ArrayList<Prodotto>();
+		
+		for(Prodotto p: categoria.getProdottos()) {
+			if(p.getUser().getLuogo().getNome().equals(luogo)) {
+				prodottos.add(p);
+			}
+		}
+		model.addAttribute("prodottos", prodottos);
+		
+		model.addAttribute("luogos", this.luogoService.findAll());
+		
 		return "categoria.html";
 	}
 

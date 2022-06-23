@@ -3,6 +3,7 @@
 
 <head th:fragment="header(title)">
 	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width">
 	<link th:href="@{/css/style.css}" rel="stylesheet">
 	<title th:text="${title}"></title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,11 +49,11 @@
 			</div>
 
 			<ul class="navbar-list flex">
-				<li>
+				<!--<li>
 					<a href="home.html" th:href="@{/home}">HOME</a>
-				</li>
+				</li>-->
 				<li>
-					<a href="prodottos.html" th:href="@{/prodotto/all}">PRODOTTI</a>
+					<a href="prodottos.html" th:href="@{/prodotto/all}">HOME</a>
 				</li>
 				<li>
 					<a href="categorias.html" th:href="@{/categoria/all}">CATEGORIE</a>

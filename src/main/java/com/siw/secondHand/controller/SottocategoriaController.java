@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.siw.secondHand.controller.validator.SottocategoriaValidator;
+import com.siw.secondHand.model.Prodotto;
 import com.siw.secondHand.model.Sottocategoria;
 import com.siw.secondHand.service.CategoriaService;
 import com.siw.secondHand.service.SottocategoriaService;
@@ -117,6 +118,10 @@ public class SottocategoriaController {
 			vecchiaSottocategoria.setNome(sottocategoria.getNome());
 			vecchiaSottocategoria.setDescrizione(sottocategoria.getDescrizione());
 			vecchiaSottocategoria.setCategoria(sottocategoria.getCategoria());
+			
+			for(Prodotto p: vecchiaSottocategoria.getProdottos()) { /* forse era meglio non collegare Categoria con Prodotto */
+				p.setCategoria(vecchiaSottocategoria.getCategoria());
+			}
 			
 			Sottocategoria sottocategoriaSalvata = this.sottocategoriaService.save(vecchiaSottocategoria);
 		

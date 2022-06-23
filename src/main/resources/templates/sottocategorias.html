@@ -5,6 +5,9 @@
 </head>
 
 <body>
+	<div th:replace="fragments/common.html :: navbar">
+	</div>
+	
 	<div th:each="sottocategoria: ${sottocategorias}">
 		<div th:text="${sottocategoria.nome}">
 		</div>

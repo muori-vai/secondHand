@@ -5,6 +5,9 @@
 </head>
 
 <body>
+	<div th:replace="fragments/common.html :: navbar">
+	</div>
+	
 	<form th:action="@{/luogo}" method="POST" th:object="${luogo}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>

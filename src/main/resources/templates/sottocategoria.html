@@ -5,34 +5,49 @@
 </head>
 
 <body>
-	<div th:if="${sottocategoria}">
-		<div th:text="${sottocategoria.nome}">
-		</div>
-		<div th:text="${sottocategoria.descrizione}">
-		</div>
-		<div th:text="${sottocategoria.categoria.nome}">
+	<div th:replace="fragments/common.html :: navbar">
+	</div>
+
+	<div class="flex-column" th:if="${sottocategoria}">
+		<div class="flex-column bg2">
+			<div class="flex title">
+				<div th:text="${sottocategoria.nome}">
+				</div>
+				<a th:href="@{'/categoria/'+${sottocategoria.categoria.id}}"
+					th:text="'('+${sottocategoria.categoria.nome}+')'">
+				</a>
+			</div>
+			<div class="description" th:text="${sottocategoria.descrizione}">
+			</div>
+			<div sec:authorize="hasAuthority('ADMIN')">
+				<a th:href="@{'/admin/sottocategoria/edit/form/'+${sottocategoria.id}}">Modifica sottocategoria</a>
+				<a th:href="@{'/admin/sottocategoria/delete/confirm/'+${sottocategoria.id}}">Cancella sottocategoria</a>
+			</div>
+
 		</div>
 
-		<div>
-			Prodotti di questa sottocategoria:
-		</div>
-		<br>
-
-		<div th:each="prodotto: ${sottocategoria.prodottos}">
-			<div th:text="${prodotto.nome}">
+		<div class="grid-container">
+			<div class="grid center" th:each="prodotto: ${sottocategoria.prodottos}">
+				<a class="grid-button" href="prodotto.html" th:href="@{'/prodotto/'+${prodotto.id}}">
+				</a>
+				<div th:if="${prodotto.fotoImagePath}">
+					<img class="product-image" th:src="@{${prodotto.fotoImagePath}}" />
+				</div>
+				<div th:unless="${prodotto.fotoImagePath}">
+					<div class="product-image flex center">Nessuna foto disponibile
+					</div>
+				</div>
+				<div class="title2" th:text="${prodotto.nome}">
+				</div>
+				<div th:text="${prodotto.user.nome}+' ('+${prodotto.user.luogo.nome}+')'">
+				</div>
 			</div>
 		</div>
-		
-		<a th:href="@{'/admin/sottocategoria/edit/form/'+${sottocategoria.id}}">Modifica sottocategoria</a>
-		<a th:href="@{'/admin/sottocategoria/delete/confirm/'+${sottocategoria.id}}">Cancella sottocategoria</a>
 	</div>
 
 	<div th:unless="${sottocategoria}">
-		Questa Sottocategoria non esiste!
+		Questa Categoria non esiste!
 	</div>
-
-	<a href="index.html" th:href="@{/}">Torna indietro
-	</a>
 </body>
 
 </html>

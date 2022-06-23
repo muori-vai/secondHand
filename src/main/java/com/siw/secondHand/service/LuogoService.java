@@ -39,7 +39,7 @@ public class LuogoService {
 	public List<Luogo> findAll() {
 		List<Luogo> luogos = new ArrayList<Luogo>();
 		
-		for(Luogo l: luogoRepository.findAll()) {
+		for(Luogo l: luogoRepository.findByOrderByNome()) {
 			luogos.add(l);
 		}
 		
