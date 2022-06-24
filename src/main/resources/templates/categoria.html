@@ -24,9 +24,16 @@
 				Sottocategorie:
 				<ul class="flex list">
 					<li th:each="sottocategoria: ${categoria.sottocategorias}">
-						<a href="sottocategoria.html" th:href="@{'/sottocategoria/'+${sottocategoria.id}}"
-							th:text="${sottocategoria.nome}">
-						</a>
+						<div th:if="${luogo}"> <!-- così se c'è un luogo selezionato, rimane selezionato -->
+							<a href="sottocategoria.html" th:href="@{'/sottocategoria/'+${sottocategoria.id}+'/'+${luogo}}"
+								th:text="${sottocategoria.nome}">
+							</a>
+						</div>
+						<div th:unless="${luogo}">
+							<a href="sottocategoria.html" th:href="@{'/sottocategoria/'+${sottocategoria.id}}"
+								th:text="${sottocategoria.nome}">
+							</a>
+						</div>
 					</li>
 				</ul>
 			</div>

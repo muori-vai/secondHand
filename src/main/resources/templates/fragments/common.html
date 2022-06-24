@@ -58,13 +58,16 @@
 				<li>
 					<a href="categorias.html" th:href="@{/categoria/all}">CATEGORIE</a>
 				</li>
+				<li sec:authorize="hasAuthority('ADMIN')">
+					<a href="sottocategorias.html" th:href="@{/sottocategoria/all}">SOTTOCATEGORIE</a>
+				</li>
 				<li>
 					<a href="luogos.html" th:href="@{/luogo/all}">LUOGHI</a>
 				</li>
 				<li>
 					<a href="user.html" th:href="@{/user/profile}">PROFILO</a>
 				</li>
-				<li>
+				<li sec:authorize="hasAuthority('ADMIN')">
 					<a href="users.html" th:href="@{/user/all}">UTENTI</a>
 				</li>
 				<li>

@@ -24,8 +24,8 @@ a {
 }
 
 body {
-	/* background-color: var(--color3); */
-	background: url("/images/bg.svg");
+	background-color: var(--color4);
+	/* background: url("/images/bg.svg"); */
 	font-family: 'Roboto', sans-serif;
 	font-weight: 400;
 	color: var(--color1);
@@ -105,6 +105,7 @@ body {
 	flex-wrap: wrap;
 	font-weight: 800;
 	text-shadow: 2px 2px var(--color5);
+	max-width: 70%;
 }
 .navbar-list:nth-last-child(1) {
 	padding-right: min(3vw, 3rem); /* per mettere un po' di spazio tra il margine e l'ultimo pulsante */
@@ -215,7 +216,7 @@ body {
 .grid {
 	position: relative; /* serve a grid-button */
 	/* border: solid .2em var(--color5); */
-	background-color: rgba(var(--color2rgb), .9);
+	background-color: rgba(var(--color3rgb), .9);
 	
 	font-size: 1.1rem;
 	box-shadow: 10px 10px rgba(0, 0, 0, 0.5);
@@ -256,7 +257,7 @@ body {
 	font-size: 1.1rem;
 }
 .grid-fit {
-	background-color: rgba(var(--color2rgb), .9);
+	background-color: rgba(var(--color3rgb), .9);
 	/* box-shadow: -10px -10px 25px rgba(0, 0, 0, 0.5); */
 	border-radius: 0 20px;
 	display: flex;
@@ -276,7 +277,7 @@ body {
 }
 .grid-fit a:hover {
 	text-decoration: underline;
-	color: var(--color4);
+	color: var(--color5);
 }
 .center {
 	align-items: center;

@@ -7,16 +7,24 @@
 <body>
 	<div th:replace="fragments/common.html :: navbar">
 	</div>
-	
-	<div th:each="sottocategoria: ${sottocategorias}">
-		<div th:text="${sottocategoria.nome}">
+
+	<div class="grid-container-fit">
+		<div class="grid-fit" sec:authorize="hasAuthority('ADMIN')">
+			<a class ="title" th:href="@{/admin/sottocategoria/form}">Inserisci una nuova sottocategoria</a>
 		</div>
-		<a href="sottocategoria.html" th:href="@{'/sottocategoria/'+${sottocategoria.id}}" th:text="dettagli">
-		</a>
+		<div class="grid-fit" th:each="sottocategoria: ${sottocategorias}">
+			<div class="flex title">
+				<a href="sottocategoria.html" th:href="@{'/sottocategoria/'+${sottocategoria.id}}"
+					th:text="${sottocategoria.nome}">
+				</a>
+				<a href="sottocategoria.html" th:href="@{'/categoria/'+${sottocategoria.categoria.id}}"
+					th:text="'('+${sottocategoria.categoria.nome}+')'">
+				</a>
+			</div>
+			<div th:text="${sottocategoria.descrizione}">
+			</div>
+		</div>
 	</div>
-	
-	<a href="index.html" th:href="@{/}">Torna indietro
-	</a>
 </body>
 
 </html>

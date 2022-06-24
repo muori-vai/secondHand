@@ -8,31 +8,29 @@
 	<div th:replace="fragments/common.html :: navbar">
 	</div>
 
-	<div th:if="${luogo}">
-		<div th:text="${luogo.nome}">
-		</div>
-		<div sec:authorize="hasAuthority('ADMIN')">
-			<a th:href="@{'/admin/luogo/edit/form/'+${luogo.id}}">Modifica luogo</a>
-			<a th:href="@{'/admin/luogo/delete/confirm/'+${luogo.id}}">Cancella luogo</a>
-		</div>
-		<div>
-			Utenti di questo luogo:
-		</div>
-		<br>
-
-		<div th:each="user: ${luogo.users}">
-			<div th:text="${user.nome}">
+	<div class="flex-column" th:if="${luogo}">
+		<div class="flex-column bg2">
+			<div class="flex title" th:text="${luogo.nome}">
+			</div>
+			<div sec:authorize="hasAuthority('ADMIN')">
+				<a th:href="@{'/admin/luogo/edit/form/'+${luogo.id}}">Modifica luogo</a>
+				<a th:href="@{'/admin/luogo/delete/confirm/'+${luogo.id}}">Cancella
+					luogo</a>
 			</div>
 		</div>
-		
+
+		<div class="grid-container">
+			<div class="grid center" th:each="user: ${luogo.users}">
+				<a href="user.html" th:href="@{'/user/'+${user.id}}" th:text="${user.nome}+' '+${user.cognome}">
+				</a>
+			</div>
+		</div>
 	</div>
 
 	<div th:unless="${luogo}">
 		Questo Luogo non esiste!
 	</div>
 
-	<a href="index.html" th:href="@{/}">Torna indietro
-	</a>
 </body>
 
 </html>

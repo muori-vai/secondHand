@@ -8,15 +8,16 @@
 	<div th:replace="fragments/common.html :: navbar">
 	</div>
 
-	<div th:each="user: ${users}">
-		<div th:text="${user.nome}">
+	<div class="grid-container-fit">
+		<div class="grid-fit" th:each="user: ${users}">
+			<div class="flex title">
+				<a href="user.html" th:href="@{'/user/'+${user.id}}" th:text="${user.nome}+' '+${user.cognome}">
+				</a>
+				<a href="luogo.html" th:href="@{'/luogo/'+${user.luogo.id}}" th:text="'('+${user.luogo.nome}+')'">
+				</a>
+			</div>
 		</div>
-		<a href="categoria.html" th:href="@{'/user/'+${user.id}}" th:text="dettagli">
-		</a>
 	</div>
-	
-	<a href="index.html" th:href="@{/}">Torna indietro
-	</a>
 </body>
 
 </html>
