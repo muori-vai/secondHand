@@ -2,6 +2,7 @@ package com.siw.secondHand.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -125,10 +126,18 @@ public class ProdottoController {
 //	}
 
 	@GetMapping("/prodotto/all")
-	public String getProdottos(Model model) {
+	public String getProdottos(Model model,@ModelAttribute("keyword") String keyword) {
+		
+		//keyword è una stringa all'interno della barra di ricerca
+		if(keyword!=null) {
+			//ho scritto qualcosa nella barra di ricerca allora cerco i prodotti che hanno nel nome la parola keyboard
+			model.addAttribute("prodottos", prodottoService.findByKeyword(keyword));
+		}
+		else {
+			//altrimenti ritorno tutti i prodotti
 		List<Prodotto> prodottos = prodottoService.findAll();
 		model.addAttribute("prodottos", prodottos);
-
+		}
 		return "prodottos.html";
 	}
 
@@ -236,5 +245,22 @@ public class ProdottoController {
 		model.addAttribute("categorias", this.categoriaService.findAll());
 
 		return "prodottoEditForm.html";
+	}
+	
+	@GetMapping("/prodotto/search")
+	public String search(Model model) {
+	
+
+		// pagina di conferma di cancellazione
+		return "search";
+	}
+	
+	@GetMapping("/prodotti/all")
+	public String searchProdotti(Model model,@ModelAttribute("prodotto") Prodotto prodotto,BindingResult bindingResult) {
+		
+		List<Prodotto> prodottos = prodottoService.findByKeyword(prodotto.getNome());
+		model.addAttribute("prodottos", prodottos);
+
+		return "prodottos.html";
 	}
 }

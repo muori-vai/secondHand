@@ -3,7 +3,10 @@
 
 <head th:replace="fragments/common.html :: header(title='Prodotti')">
 </head>
-
+<form th:action="@{/prodotto/all}" method="get">
+	<input id="txtSearch" type="text" name="keyword">
+	<button type="submit">Go</button>
+</form>
 
 <body>
 	<div th:replace="fragments/common.html :: navbar">

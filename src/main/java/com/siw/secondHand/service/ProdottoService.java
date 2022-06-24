@@ -2,6 +2,7 @@ package com.siw.secondHand.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -60,5 +61,11 @@ public class ProdottoService {
 		if (prodotto.getCategoria() == null || prodotto.getSottocategoria() == null)
 			return false; // ci pensa poi il NotNull a dare il warning
 		return (!prodotto.getCategoria().equals(prodotto.getSottocategoria().getCategoria()));
+	}
+
+
+	//Get prodotti by keyword
+	public List<Prodotto> findByKeyword(String keyword){
+		return prodottoRepository.findByKeyword(keyword);
 	}
 }
