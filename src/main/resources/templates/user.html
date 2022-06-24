@@ -22,7 +22,6 @@
 			<div th:if="(${user.id}==${currentUserId}) OR (${#authorization.expression('hasAuthority(''ADMIN'')')})">
 				<a th:href="@{'/user/edit/form/'+${user.id}}">Modifica Utente</a>
 			</div>
-
 		</div>
 
 		<div class="grid-container">

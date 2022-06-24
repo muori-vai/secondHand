@@ -223,10 +223,11 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 1em;
+	/* padding: 1em; */
 	outline: 0 solid var(--color2);
 	outline-offset: 0;
 	transition: 0.2s ease-out;
+	--gap: 0;
 }
 .grid:hover {
 	outline: 5px solid var(--color1);
@@ -243,6 +244,7 @@ body {
 	height: 300px;
 	width: 250px;
 	object-fit: cover;
+	border-radius: 20px 0;
 }
 
 .grid-container-fit { /* usato per l'elenco di categorie e sottocategorie */
@@ -300,6 +302,7 @@ body {
 .dropdown {
   position: relative;
   display: inline-block;
+  width: fit-content;
 }
 
 .dropdown-content {
