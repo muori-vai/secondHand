@@ -1,6 +1,7 @@
 package com.siw.secondHand.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -18,6 +19,7 @@ import com.siw.secondHand.controller.validator.SottocategoriaValidator;
 import com.siw.secondHand.model.Prodotto;
 import com.siw.secondHand.model.Sottocategoria;
 import com.siw.secondHand.service.CategoriaService;
+import com.siw.secondHand.service.LuogoService;
 import com.siw.secondHand.service.SottocategoriaService;
 
 @Controller
@@ -28,6 +30,10 @@ public class SottocategoriaController {
 
 	@Autowired
 	private CategoriaService categoriaService;
+	
+	@Autowired
+	private LuogoService luogoService;
+	
 	
 	@Autowired
 	private SottocategoriaValidator sottocategoriaValidator;
@@ -43,7 +49,8 @@ public class SottocategoriaController {
 			Sottocategoria sottocategoriaSalvata = sottocategoriaService.save(sottocategoria); //questo save è diverso dal save del progetto Catering
 			
 			model.addAttribute("sottocategoria", sottocategoriaSalvata);
-
+			model.addAttribute("luogos", this.luogoService.findAll());
+			
 			return "redirect:/sottocategoria/"+sottocategoriaSalvata.getId();
 		}
 
@@ -63,7 +70,26 @@ public class SottocategoriaController {
 	public String getSottocategoria(@PathVariable("id") Long id, Model model) {
 		Sottocategoria sottocategoria = sottocategoriaService.findById(id);
 		model.addAttribute("sottocategoria", sottocategoria);
-
+		model.addAttribute("luogos", this.luogoService.findAll());
+		
+		return "sottocategoria.html";
+	}
+	
+	@GetMapping("/sottocategoria/{id}/{luogo}")
+	public String getSottocategoriaConLuogo(@PathVariable("id") Long id, @PathVariable("luogo") String luogo, Model model) {
+		Sottocategoria sottocategoria = sottocategoriaService.findById(id);
+		model.addAttribute("sottocategoria", sottocategoria);
+		
+		List<Prodotto> prodottos = new ArrayList<Prodotto>();
+		
+		for(Prodotto p: sottocategoria.getProdottos()) {
+			if(p.getUser().getLuogo().getNome().equals(luogo)) {
+				prodottos.add(p);
+			}
+		}
+		model.addAttribute("prodottos", prodottos);
+		model.addAttribute("luogos", this.luogoService.findAll());
+		
 		return "sottocategoria.html";
 	}
 
@@ -126,6 +152,7 @@ public class SottocategoriaController {
 			Sottocategoria sottocategoriaSalvata = this.sottocategoriaService.save(vecchiaSottocategoria);
 		
 			model.addAttribute("sottocategoria", sottocategoriaSalvata);
+			model.addAttribute("luogos", this.luogoService.findAll());
 			
 			return "redirect:/sottocategoria/"+sottocategoriaSalvata.getId();
 		}

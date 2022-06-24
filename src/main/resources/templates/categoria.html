@@ -47,19 +47,38 @@
 		</div>
 
 		<div class="grid-container">
-			<div class="grid center" th:each="prodotto: ${prodottos}">
-				<a class="grid-button" href="prodotto.html" th:href="@{'/prodotto/'+${prodotto.id}}">
-				</a>
-				<div th:if="${prodotto.fotoImagePath}">
-					<img class="product-image" th:src="@{${prodotto.fotoImagePath}}" />
-				</div>
-				<div th:unless="${prodotto.fotoImagePath}">
-					<div class="product-image flex center">Nessuna foto disponibile
+			<div class="flex" th:if="${prodottos}">
+				<div class="grid center" th:each="prodotto: ${prodottos}">
+					<a class="grid-button" href="prodotto.html" th:href="@{'/prodotto/'+${prodotto.id}}">
+					</a>
+					<div th:if="${prodotto.fotoImagePath}">
+						<img class="product-image" th:src="@{${prodotto.fotoImagePath}}" />
+					</div>
+					<div th:unless="${prodotto.fotoImagePath}">
+						<div class="product-image flex center">Nessuna foto disponibile
+						</div>
+					</div>
+					<div class="title2" th:text="${prodotto.nome}">
+					</div>
+					<div th:text="${prodotto.user.nome}+' ('+${prodotto.user.luogo.nome}+')'">
 					</div>
 				</div>
-				<div class="title2" th:text="${prodotto.nome}">
-				</div>
-				<div th:text="${prodotto.user.nome}+' ('+${prodotto.user.luogo.nome}+')'">
+			</div>
+			<div class="flex" th:unless="${prodottos}">
+				<div class="grid center" th:each="prodotto: ${categoria.prodottos}">
+					<a class="grid-button" href="prodotto.html" th:href="@{'/prodotto/'+${prodotto.id}}">
+					</a>
+					<div th:if="${prodotto.fotoImagePath}">
+						<img class="product-image" th:src="@{${prodotto.fotoImagePath}}" />
+					</div>
+					<div th:unless="${prodotto.fotoImagePath}">
+						<div class="product-image flex center">Nessuna foto disponibile
+						</div>
+					</div>
+					<div class="title2" th:text="${prodotto.nome}">
+					</div>
+					<div th:text="${prodotto.user.nome}+' ('+${prodotto.user.luogo.nome}+')'">
+					</div>
 				</div>
 			</div>
 		</div>

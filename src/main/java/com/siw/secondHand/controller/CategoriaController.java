@@ -41,11 +41,10 @@ public class CategoriaController {
 		
 		if (!bindingResult.hasErrors()) {
 			
-			Categoria categoriaSalvata = categoriaService.save(categoria); //questo save è diverso dal save del progetto Catering
-
-			//categoriaSalvato mi servirà dopo
+			Categoria categoriaSalvata = categoriaService.save(categoria);
 			
 			model.addAttribute("categoria", categoriaSalvata);
+			model.addAttribute("luogos", this.luogoService.findAll());
 			
 			return "redirect:/categoria/"+categoriaSalvata.getId();
 		}
@@ -65,9 +64,6 @@ public class CategoriaController {
 	public String getCategoria(@PathVariable("id") Long id, Model model) {
 		Categoria categoria = categoriaService.findById(id);
 		model.addAttribute("categoria", categoria);
-		
-		model.addAttribute("prodottos", categoria.getProdottos());
-		
 		model.addAttribute("luogos", this.luogoService.findAll());
 		
 		return "categoria.html";
@@ -86,7 +82,6 @@ public class CategoriaController {
 			}
 		}
 		model.addAttribute("prodottos", prodottos);
-		
 		model.addAttribute("luogos", this.luogoService.findAll());
 		
 		return "categoria.html";
@@ -144,6 +139,7 @@ public class CategoriaController {
 			Categoria categoriaSalvata = this.categoriaService.save(vecchiaCategoria);
 		
 			model.addAttribute("categoria", categoriaSalvata);
+			model.addAttribute("luogos", this.luogoService.findAll());
 			
 			return "redirect:/categoria/"+categoriaSalvata.getId();
 		}
