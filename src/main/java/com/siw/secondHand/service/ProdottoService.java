@@ -39,15 +39,28 @@ public class ProdottoService {
 	}
 
 	public List<Prodotto> findAll() {
-		List<Prodotto> prodottos = new ArrayList<Prodotto>();
-
-		for (Prodotto p : prodottoRepository.findAll()) {
-			prodottos.add(p);
-		}
-
+		List<Prodotto> prodottos = prodottoRepository.findAllByOrderByIdDesc();
+		//ritorna una lista, non un iterable, quindi non c'è più bisogno del foreach
+		
 		return prodottos;
 	}
 
+	public List<Prodotto> findFirstN(int n) {
+		List<Prodotto> prodottos = prodottoRepository.findAllByOrderByIdDesc();
+		
+		if(prodottos.size() <= n) {
+			return prodottos;
+		}
+
+		List<Prodotto> nProdottos = new ArrayList<Prodotto>();;
+		
+		for(int i = 0; i < n; i++) {
+			nProdottos.add(prodottos.get(i));
+		}
+
+		return nProdottos;
+	}
+	
 	public boolean alreadyExists(Prodotto prodotto) {
 		return prodottoRepository.existsByNomeAndDescrizioneAndFotoAndUserAndCategoriaAndSottocategoria(
 				prodotto.getNome(), prodotto.getDescrizione(), prodotto.getFoto(), prodotto.getUser(),

@@ -7,41 +7,50 @@
 <body>
 	<div th:replace="fragments/common.html :: navbar">
 	</div>
-	
-	<form th:action="@{/sottocategoria}" method="POST" th:object="${sottocategoria}">
-		<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
-		</div>
-		<div>
-			Nome: <input type="text" th:field="*{nome}" />
-			<div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">
-			</div>
-		</div>
-		<div>
-			Descrizione: <input type="text" th:field="*{descrizione}" />
-			<div th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}">
-			</div>
-		</div>
 
-		<fieldset>
-			<div th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}">
+	<div class="grid-container-form">
+		<div class="grid-form">
+			<div class="flex title">Inserimento Sottocategoria
 			</div>
-			<legend>Seleziona Categoria</legend>
-			<div th:each="categoria: ${categorias}">
-				<!-- type="radio": una sola scelta; type="checkbox": più scelte-->
-				<input type="radio" id="${categorias}" th:field="*{categoria}" name="categoria"
-					th:value="${categoria.id}" />
-				<label for="${categorias}" th:text="${categoria.nome}">nome categoria</label>
-			</div>
-		</fieldset>
-
-		<div>
-			<button type="submit">Conferma</button>
+			<form th:action="@{/sottocategoria}" method="POST" th:object="${sottocategoria}">
+				<div th:if="${#fields.hasGlobalErrors()}">
+					<p th:each="err : ${#fields.globalErrors()}" th:text="${err}" th:style="'color:red'">...</p>
+				</div>
+				<table>
+					<tr>
+						<td>Nome:
+						</td>
+						<td><input type="text" th:field="*{nome}" />
+						</td>
+						<td th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" th:style="'color:red'">
+						</td>
+					</tr>
+					<tr>
+						<td>Descrizione:
+						</td>
+						<td><input type="text" th:field="*{descrizione}" />
+						</td>
+						<td th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}" th:style="'color:red'">
+						</td>
+					</tr>
+				</table>
+				<fieldset>
+					<div th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}" th:style="'color:red'">
+					</div>
+					<legend>Seleziona Categoria</legend>
+					<div th:each="categoria: ${categorias}">
+						<!-- type="radio": una sola scelta; type="checkbox": più scelte-->
+						<input type="radio" id="${categorias}" th:field="*{categoria}" name="categoria"
+							th:value="${categoria.id}" />
+						<label for="${categorias}" th:text="${categoria.nome}">nome categoria</label>
+					</div>
+				</fieldset>
+				<div>
+					<button type="submit">Conferma</button>
+				</div>
+			</form>
 		</div>
-	</form>
-
-	<a href="index.html" th:href="@{/}">Torna indietro
-	</a>
+	</div>
 </body>
 
 </html>

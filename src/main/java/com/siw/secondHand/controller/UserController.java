@@ -85,7 +85,8 @@ public class UserController {
 		User currentUser = credentials.getUser();
 
 		model.addAttribute("user", currentUser);
-
+		model.addAttribute("currentUserId", currentUser.getId());
+		
 		return "user.html";
 	}
 

@@ -6,15 +6,19 @@
 
 <body>
 
-	<h1>Stai per uscire dall'account</h1>
-	<div>
-		<a th:href="@{/logout}" th:text="Conferma">Conferma</a>
-		<a href="home.html" th:href="@{/home}">Annulla</a>
+	<div class="grid-container-form">
+		<div class="grid-form">
+			<div class="flex title">Stai per uscire dall'account
+			</div>
+			<div>
+				<a th:href="@{/logout}" th:text="Conferma">Conferma</a>
+				<a href="home.html" th:href="@{/home}">Annulla</a>
+			</div>
+		</div>
 	</div>
 
 	<footer th:replace="fragments/common.html :: footer">
 	</footer>
-
 </body>
 
 </html>

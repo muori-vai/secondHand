@@ -7,63 +7,67 @@
 <body>
 	<div th:replace="fragments/common.html :: navbar">
 	</div>
-	
-	<form th:action="@{/prodotto}" method="POST" th:object="${prodotto}" enctype="multipart/form-data">
-		<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
-		</div>
-		<div>
-			Nome: <input type="text" th:field="*{nome}" />
-			<div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">
-			</div>
-		</div>
-		<div>
-			Descrizione: <input type="text" th:field="*{descrizione}" />
-			<div th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}">
-			</div>
-		</div>
-		<label>Foto: </label>
-		<input type="file" name="image" accept="image/png, image/jpeg" />
 
-		<fieldset>
-			<div th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}">
+	<div class="grid-container-form">
+		<div class="grid-form">
+			<div class="flex title">Inserimento Prodotto
 			</div>
-			<div th:if="${#fields.hasErrors('sottocategoria')}" th:errors="*{sottocategoria}">
-			</div>
-			<legend>Seleziona Categoria</legend>
-
-			<div th:each="categoria: ${categorias}">
-				<input type="radio" id="${categorias}" th:field="*{categoria}" name="categoria"
-					th:value="${categoria.id}" />
-				<label for="${categorias}" th:text="${categoria.nome}">nome categoria</label>
-
+			<form th:action="@{/prodotto}" method="POST" th:object="${prodotto}" enctype="multipart/form-data">
+				<div th:if="${#fields.hasGlobalErrors()}">
+					<p th:each="err : ${#fields.globalErrors()}" th:text="${err}" th:style="'color:red'">...</p>
+				</div>
+				<table>
+					<tr>
+						<td>Nome:
+						</td>
+						<td><input type="text" th:field="*{nome}" />
+						</td>
+						<td th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" th:style="'color:red'">
+						</td>
+					</tr>
+					<tr>
+						<td>Descrizione:
+						</td>
+						<td><input type="text" th:field="*{descrizione}" />
+						</td>
+						<td th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}"
+							th:style="'color:red'">
+						</td>
+					</tr>
+					<tr>
+						<td>Foto:
+						</td>
+						<td><input type="file" name="image" accept="image/png, image/jpeg" />
+						</td>
+					</tr>
+				</table>
 				<fieldset>
-					<legend>Seleziona Sottocategoria</legend>
-					<div th:each="sottocategoria: ${categoria.sottocategorias}">
-						<input type="radio" id="${categoria.sottocategorias}" th:field="*{sottocategoria}"
-							name="sottocategoria" th:value="${sottocategoria.id}" />
-						<label for="${categoria.sottocategorias}" th:text="${sottocategoria.nome}">nome
-							sottocategoria</label>
+					<div th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}">
+					</div>
+					<div th:if="${#fields.hasErrors('sottocategoria')}" th:errors="*{sottocategoria}">
+					</div>
+					<legend>Seleziona Categoria</legend>
+					<div th:each="categoria: ${categorias}">
+						<input type="radio" id="${categorias}" th:field="*{categoria}" name="categoria"
+							th:value="${categoria.id}" />
+						<label for="${categorias}" th:text="${categoria.nome}">nome categoria</label>
+						<fieldset>
+							<legend>Seleziona Sottocategoria</legend>
+							<div th:each="sottocategoria: ${categoria.sottocategorias}">
+								<input type="radio" id="${categoria.sottocategorias}" th:field="*{sottocategoria}"
+									name="sottocategoria" th:value="${sottocategoria.id}" />
+								<label for="${categoria.sottocategorias}" th:text="${sottocategoria.nome}">nome
+									sottocategoria</label>
+							</div>
+						</fieldset>
 					</div>
 				</fieldset>
-			</div>
-		</fieldset>
-		<!--<fieldset>
-			<div th:if="${#fields.hasErrors('luogo')}" th:errors="*{luogo}">
-			</div>
-			<legend>Seleziona Luogo</legend>
-			<div th:each="luogo: ${luogos}">
-				<input type="radio" id="${luogos}" th:field="*{luogo}" name="luogo" th:value="${luogo.id}" />
-				<label for="${luogos}" th:text="${luogo.nome}">nome luogo</label>
-			</div>
-		</fieldset>-->
-		<div>
-			<button type="submit">Conferma</button>
+				<div>
+					<button type="submit">Conferma</button>
+				</div>
+			</form>
 		</div>
-	</form>
-
-	<a href="index.html" th:href="@{/}">Torna indietro
-	</a>
+	</div>
 </body>
 
 </html>

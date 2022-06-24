@@ -5,26 +5,32 @@
 </head>
 
 <body>
-	<div>
-		<h4>Login</h4>
-	</div>
-	<form th:action="@{/login}" method="POST">
-		<div>
-			<div>Errore nell'username o password</div>
-			<div>
-				<span>Username:</span>
-				<span><input name="username" type="text" required /></span>
-			</div>		
-			<div>
-				<span>Password:</span>
-				<span><input name="password" type="password" required /></span>
+	<div class="grid-container-form">
+		<div class="grid-form">
+			<div class="flex title">Inserimento Categoria
 			</div>
-			<div>
-				<span><button type="submit">Login</button></span>
-			</div>
+			<form th:action="@{/login}" method="POST">
+				<div th:text="Errore+' '+'nell\'username'+' '+o+' '+nella+' '+password" th:style="'color:red'">
+				</div>
+				<table>
+					<tr>
+						<td>Username:
+						</td>
+						<td><input name="username" type="text" required />
+						</td>
+					</tr>
+					<tr>
+						<td>Password:
+						</td>
+						<td><input name="password" type="password" required />
+						</td>
+					</tr>
+				</table>
+				<div>
+					<button type="submit">Login</button>
+				</div>
+			</form>
 		</div>
-	</form>
-	<a href="index.html" th:href="@{/}">Torna indietro
-	</a>
+	</div>
 </body>
 </html>
