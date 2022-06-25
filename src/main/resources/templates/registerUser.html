@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
@@ -39,11 +40,19 @@
 							<div th:if="${#fields.hasErrors('user.luogo')}" th:errors="*{user.luogo}">
 							</div>
 							<legend>Seleziona Luogo</legend>
-							<div th:each="luogo: ${luogos}">
+
+							<select th:field="*{user.luogo}" required>
+								<option value="---">---</option>
+								<th:block th:each="luogo: ${luogos}">
+									<option th:text="${luogo.nome}" th:value="${luogo.id}"></option>
+							 </th:block> 
+							
+							 <div th:each="luogo: ${luogos}">
 								<input type="radio" id="${luogos}" th:field="*{user.luogo}" name="luogo"
 									th:value="${luogo.id}" />
 								<label for="${luogos}" th:text="${luogo.nome}">nome luogo</label>
 							</div>
+						
 						</fieldset>
 					</td>
 				</tr>
@@ -57,4 +66,54 @@
 	</div>
 </body>
 
+</html>
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link th:href="@{/css/styleLogin.css}" rel="stylesheet">
+<head th:replace="fragments/common.html :: header(title='Registrazione')">
+</head>
+<body>
+	<!--
+<div class="login-page">
+	<div class="form">
+		<form th:action="@{/login}" method="POST" >
+			<input type="text" name="username" placeholder="username" required/>
+			<input type="password" name="password"placeholder="password" required/>
+			<button>login</button>
+			<p class="message">Not registered? <a href="#" th:href="@{/register}">Create an account</a></p>
+		  </form>
+		  <a href="index.html" th:href="@{/}">Torna indietro
+		</a>
+		</div>
+	  </div>
+	  -->
+	  <div class="login-page">
+		<div class="form">
+			<form th:action="@{/register}" method="POST" >
+				<input type="text" name="username" placeholder="username" required th:field="${credentials.username}"/>
+				<span><th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}"
+						th:style="'color:red'"> </span>
+				<input type="password" name="password"placeholder="password" required th:field="${credentials.password}"/>
+				<span><th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}"
+						th:style="'color:red'"></span>
+				<input type="text" name="nome" placeholder="nome" th:field="${user.nome}"required/>
+				<span><th:if="${#fields.hasErrors('user.nome')}" th:errors="${user.nome}" th:style="'color:red'"></span>
+				<input type="text" name="cognome" placeholder="cognome" required th:field="${user.cognome}"/>
+				<span><th:if="${#fields.hasErrors('user.cognome')}" th:errors="${user.cognome}" th:style="'color:red'">
+				</span>
+				<select th:field="*{user.luogo}" required>
+				<option value="---">---</option>
+			   <th:block th:each="luogo: ${luogos}">
+				<option th:text="${luogo.nome}" th:value="${luogo.id}"></option>
+		       </th:block> 
+			</select>
+				<button>register</button>
+				<p class="message">Alredy Registred? <a href="#" th:href="@{/register}">Login</a></p>
+			  </form>
+			  <a href="index.html" th:href="@{/}">Torna indietro
+			</a>
+			</div>
+		  </div>	  
+</body>
 </html>
