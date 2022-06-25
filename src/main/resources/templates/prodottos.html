@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <head th:replace="fragments/common.html :: header(title='Prodotti')">
 </head>
-<form th:action="@{/prodotto/all}" method="get">
-	<input id="txtSearch" type="text" name="keyword">
-	<button type="submit">Go</button>
-</form>
+
 
 <body>
 	<div th:replace="fragments/common.html :: navbar">
 	</div>
+	
+    <div class="searchBar">
+	     <form th:action="@{/prodotto/all}" method="get">
+		     <input id="txtSearch" type="text" name="keyword" placeholder="Cerca articoli">
+		     <button type="submit"><i class="fa fa-search"></i></button>
+	     </form>
+    </div>
 
 	<div class="grid-container">
 		<div class="grid center">

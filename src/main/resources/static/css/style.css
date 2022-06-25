@@ -25,7 +25,7 @@ a {
 
 body {
 	/* background-color: var(--color3); */
-	background: url("/images/bg.svg");
+	background: url("/images/hollowed-boxes.svg");
 	font-family: 'Roboto', sans-serif;
 	font-weight: 400;
 	color: var(--color1);
@@ -314,4 +314,16 @@ body {
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+.SearchBar {
+	position: absolute;
+	top: 355px;
+	left: 575px;
+	margin: 50px;
+}
+
+.SearchBar input {
+	height: 30px;
+	width: 50px;
 }

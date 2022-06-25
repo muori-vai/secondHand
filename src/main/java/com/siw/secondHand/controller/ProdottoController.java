@@ -2,8 +2,6 @@ package com.siw.secondHand.controller;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,7 +138,7 @@ public class ProdottoController {
 		}
 		return "prodottos.html";
 	}
-
+	
 	// forse dovrei mettere /prodotto/dettagli/{id} per permettere agli utenti non
 	// registrati di vedere i prodotti
 	@GetMapping("/prodotto/{id}")
