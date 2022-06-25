@@ -7,35 +7,52 @@
 <body>
 	<div th:replace="fragments/common.html :: navbar">
 	</div>
-	
-	<div th:if="${prodotto}">
-		<div th:text="${prodotto.nome}">
-		</div>
-		<div th:text="${prodotto.descrizione}">
-		</div>
-		<div th:text="${prodotto.categoria.nome}">
-		</div>
-		<div th:text="${prodotto.sottocategoria.nome}">
-		</div>
-		<div th:text="${prodotto.user.nome}">
-		</div>
-		<div th:text="${prodotto.user.luogo.nome}">
-		</div>
-		<img th:src="@{${prodotto.fotoImagePath}}" />
 
-		<div th:if="(${prodotto.user.id}==${currentUserId}) OR (${#authorization.expression('hasAuthority(''ADMIN'')')})">
-			<a th:href="@{'/prodotto/edit/form/'+${prodotto.id}}">Modifica prodotto</a>
-			<a th:href="@{'/prodotto/delete/confirm/'+${prodotto.id}}">Cancella prodotto</a>
+	<div class="flex-column center" th:if="${prodotto}">
+		<div class="product-container">
+			<div>
+				<div th:if="${prodotto.fotoImagePath}">
+					<img class="product-image-bigger" th:src="@{${prodotto.fotoImagePath}}" />
+				</div>
+				<div th:unless="${prodotto.fotoImagePath}">
+					<div class="product-image-bigger flex center">Nessuna foto disponibile
+					</div>
+				</div>
+			</div>
+			<div class="product-info">
+				<div class="title" th:text="${prodotto.nome}">
+				</div>
+				<div class="title2" th:text="${prodotto.descrizione}">
+				</div>
+				<div class="title2">Venditore:
+					<a th:href="@{'/user/'+${prodotto.user.id}}" th:text="${prodotto.user.nome}">Utente</a>
+					<a th:href="@{'/luogo/'+${prodotto.user.luogo.id}}"
+						th:text="'('+${prodotto.user.luogo.nome}+')'">Luogo</a>
+				</div>
+				<div class="title2">Categoria:
+					<a th:href="@{'/categoria/'+${prodotto.categoria.id}}"
+						th:text="${prodotto.categoria.nome}">Categoria</a>
+				</div>
+				<div class="title2">Sottocategoria:
+					<a th:href="@{'/sottocategoria/'+${prodotto.sottocategoria.id}}"
+						th:text="${prodotto.sottocategoria.nome}">Sottosottocategoria</a>
+				</div>
+				<div th:if="(${prodotto.user.id}==${currentUserId}) OR (${#authorization.expression('hasAuthority(''ADMIN'')')})">
+					<div>
+						<a th:href="@{'/prodotto/edit/form/'+${prodotto.id}}">Modifica prodotto</a>
+					</div>
+					<a th:href="@{'/prodotto/delete/confirm/'+${prodotto.id}}">Cancella prodotto</a>
+				</div>
+			</div>
 		</div>
-
 	</div>
 
 	<div th:unless="${prodotto}">
 		Questo Prodotto non esiste!
 	</div>
 
-	<a href="index.html" th:href="@{/}">Torna indietro
-	</a>
+	<div th:insert="fragments/common.html :: footer">
+	</div>
 </body>
 
 </html>

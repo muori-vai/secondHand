@@ -7,7 +7,7 @@
 <body>	
 	<div class="grid-container-form">
 		<div class="grid-form">
-			<div class="flex title">Inserimento Categoria
+			<div class="flex title">Login
 			</div>
 			<form th:action="@{/login}" method="POST">
 				<table>
@@ -29,6 +29,9 @@
 				</div>
 			</form>
 		</div>
+	</div>
+
+	<div th:insert="fragments/common.html :: footer">
 	</div>
 </body>
 </html>

@@ -5,6 +5,8 @@
 </head>
 
 <body>
+	<div th:replace="fragments/common.html :: navbar">
+	</div>
 
 	<div class="grid-container-form">
 		<div class="grid-form">
@@ -17,8 +19,8 @@
 		</div>
 	</div>
 
-	<footer th:replace="fragments/common.html :: footer">
-	</footer>
+	<div th:insert="fragments/common.html :: footer">
+	</div>
 </body>
 
 </html>

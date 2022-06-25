@@ -18,7 +18,12 @@
 					luogo</a>
 			</div>
 		</div>
-
+		
+		<div class="attached-info">
+			<div class="flex title2">Utenti situati in questo luogo:
+			</div>
+		</div>
+		
 		<div class="grid-container">
 			<div class="grid center" th:each="user: ${luogo.users}">
 				<a href="user.html" th:href="@{'/user/'+${user.id}}" th:text="${user.nome}+' '+${user.cognome}">
@@ -31,6 +36,8 @@
 		Questo Luogo non esiste!
 	</div>
 
+	<div th:insert="fragments/common.html :: footer">
+	</div>
 </body>
 
 </html>
