@@ -9,19 +9,28 @@
 	</div>
 
 	<div class="flex-column" th:if="${sottocategoria}">
-		<div class="flex-column bg2">
+		<div class="flex-column bg3">
 			<div class="flex title">
 				<div th:text="${sottocategoria.nome}">
 				</div>
-				<a th:href="@{'/categoria/'+${sottocategoria.categoria.id}}"
-					th:text="'('+${sottocategoria.categoria.nome}+')'">
-				</a>
+				<div th:if="${luogo}">
+					<!-- così se c'è un luogo selezionato, rimane selezionato -->
+					<a th:href="@{'/categoria/'+${sottocategoria.categoria.id}+'/'+${luogo}}"
+						th:text="'('+${sottocategoria.categoria.nome}+')'">
+					</a>
+				</div>
+				<div th:unless="${luogo}">
+					<a th:href="@{'/categoria/'+${sottocategoria.categoria.id}}"
+						th:text="'('+${sottocategoria.categoria.nome}+')'">
+					</a>
+				</div>
 			</div>
 			<div class="description" th:text="${sottocategoria.descrizione}">
 			</div>
 			<div sec:authorize="hasAuthority('ADMIN')">
 				<a th:href="@{'/admin/sottocategoria/edit/form/'+${sottocategoria.id}}">Modifica sottocategoria</a>
-				<a th:href="@{'/admin/sottocategoria/delete/confirm/'+${sottocategoria.id}}">Cancella sottocategoria</a>
+				<a th:href="@{'/admin/sottocategoria/delete/confirm/'+${sottocategoria.id}}">Cancella
+					sottocategoria</a>
 			</div>
 			<div class="dropdown">
 				<span class="title2" th:if="${luogo}" th:text="${luogo}"></span>
@@ -39,47 +48,52 @@
 				</div>
 			</div>
 		</div>
+		<div class="attached-info">
+			<div class="flex title2">Prodotti di questa sottocategoria:
+			</div>
+		</div>
 
-		<div class="grid-container">
-			<div class="flex" th:if="${prodottos}">
-				<div class="grid center" th:each="prodotto: ${prodottos}">
-					<a class="grid-button" href="prodotto.html" th:href="@{'/prodotto/'+${prodotto.id}}">
-					</a>
-					<div th:if="${prodotto.fotoImagePath}">
-						<img class="product-image" th:src="@{${prodotto.fotoImagePath}}" />
-					</div>
-					<div th:unless="${prodotto.fotoImagePath}">
-						<div class="product-image flex center">Nessuna foto disponibile
-						</div>
-					</div>
-					<div class="title2" th:text="${prodotto.nome}">
-					</div>
-					<div th:text="${prodotto.user.nome}+' ('+${prodotto.user.luogo.nome}+')'">
+		<div class="grid-container" th:if="${prodottos}">
+			<div class="grid center" th:each="prodotto: ${prodottos}">
+				<a class="grid-button" href="prodotto.html" th:href="@{'/prodotto/'+${prodotto.id}}">
+				</a>
+				<div th:if="${prodotto.fotoImagePath}">
+					<img class="product-image" th:src="@{${prodotto.fotoImagePath}}" />
+				</div>
+				<div th:unless="${prodotto.fotoImagePath}">
+					<div class="product-image flex center">Nessuna foto disponibile
 					</div>
 				</div>
+				<div class="title2" th:text="${prodotto.nome}">
+				</div>
+				<div th:text="${prodotto.user.nome}+' ('+${prodotto.user.luogo.nome}+')'">
+				</div>
 			</div>
-			<div class="flex" th:unless="${prodottos}">
-				<div class="grid center" th:each="prodotto: ${sottocategoria.prodottos}">
-					<a class="grid-button" href="prodotto.html" th:href="@{'/prodotto/'+${prodotto.id}}">
-					</a>
-					<div th:if="${prodotto.fotoImagePath}">
-						<img class="product-image" th:src="@{${prodotto.fotoImagePath}}" />
+		</div>
+		<div class="grid-container" th:unless="${prodottos}">
+			<div class="grid center" th:each="prodotto: ${sottocategoria.prodottos}">
+				<a class="grid-button" href="prodotto.html" th:href="@{'/prodotto/'+${prodotto.id}}">
+				</a>
+				<div th:if="${prodotto.fotoImagePath}">
+					<img class="product-image" th:src="@{${prodotto.fotoImagePath}}" />
+				</div>
+				<div th:unless="${prodotto.fotoImagePath}">
+					<div class="product-image flex center">Nessuna foto disponibile
 					</div>
-					<div th:unless="${prodotto.fotoImagePath}">
-						<div class="product-image flex center">Nessuna foto disponibile
-						</div>
-					</div>
-					<div class="title2" th:text="${prodotto.nome}">
-					</div>
-					<div th:text="${prodotto.user.nome}+' ('+${prodotto.user.luogo.nome}+')'">
-					</div>
+				</div>
+				<div class="title2" th:text="${prodotto.nome}">
+				</div>
+				<div th:text="${prodotto.user.nome}+' ('+${prodotto.user.luogo.nome}+')'">
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<div th:unless="${sottocategoria}">
-		Questa Categoria non esiste!
+		Questa Sottocategoria non esiste!
+	</div>
+
+	<div th:insert="fragments/common.html :: footer">
 	</div>
 </body>
 

@@ -13,13 +13,12 @@
 		<div class="grid center">
 			<a class="grid-button" th:href="@{/prodotto/form}">
 			</a>
-			<div class="title">Inserisci un tuo prodotto
+			<div class="title3">Inserisci un tuo prodotto
 			</div>
 		</div>
 		<div class="grid center" th:each="prodotto: ${prodottos}">
 			<a class="grid-button" href="prodotto.html" th:href="@{'/prodotto/'+${prodotto.id}}">
 			</a>
-			
 			<div th:if="${prodotto.fotoImagePath}">
 				<img class="product-image" th:src="@{${prodotto.fotoImagePath}}" />
 			</div>
@@ -34,6 +33,8 @@
 		</div>
 	</div>
 
+	<div th:insert="fragments/common.html :: footer">
+	</div>
 </body>
 
 </html>

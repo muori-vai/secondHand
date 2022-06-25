@@ -31,6 +31,8 @@ import com.siw.secondHand.service.ProdottoService;
 @Controller
 public class ProdottoController {
 
+	public static final int N_OF_PRODUCTS = 3; //articoli da far vedere nella pagina home, potrebbe servire
+	
 	@Autowired
 	private ProdottoService prodottoService;
 
@@ -130,6 +132,15 @@ public class ProdottoController {
 		model.addAttribute("prodottos", prodottos);
 
 		return "prodottos.html";
+	}
+	
+	@GetMapping("/home")
+	public String getProdottoHome(Model model) {
+		List<Prodotto> prodottos = prodottoService.findFirstN(N_OF_PRODUCTS);
+		
+		model.addAttribute("prodottos", prodottos);
+
+		return "home.html";
 	}
 
 	// forse dovrei mettere /prodotto/dettagli/{id} per permettere agli utenti non

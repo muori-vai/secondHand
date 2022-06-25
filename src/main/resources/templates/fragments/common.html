@@ -49,41 +49,63 @@
 			</div>
 
 			<ul class="navbar-list flex">
-				<!--<li>
-					<a href="home.html" th:href="@{/home}">HOME</a>
-				</li>-->
 				<li>
-					<a href="prodottos.html" th:href="@{/prodotto/all}">HOME</a>
+					<a href="home.html" th:href="@{/home}">HOME</a>
+				</li>
+				<li>
+					<a href="prodottos.html" th:href="@{/prodotto/all}">PRODOTTI</a>
 				</li>
 				<li>
 					<a href="categorias.html" th:href="@{/categoria/all}">CATEGORIE</a>
 				</li>
+				<li sec:authorize="hasAuthority('ADMIN')">
+					<a href="sottocategorias.html" th:href="@{/sottocategoria/all}">SOTTOCATEGORIE</a>
+				</li>
 				<li>
 					<a href="luogos.html" th:href="@{/luogo/all}">LUOGHI</a>
 				</li>
-				<li>
+				<li sec:authorize="hasAuthority('ADMIN') OR hasAuthority('DEFAULT')">
 					<a href="user.html" th:href="@{/user/profile}">PROFILO</a>
 				</li>
-				<li>
+				<li sec:authorize="hasAuthority('ADMIN')">
 					<a href="users.html" th:href="@{/user/all}">UTENTI</a>
 				</li>
-				<li>
+				<li sec:authorize="not (hasAuthority('ADMIN') OR hasAuthority('DEFAULT'))">
+					<a href="askLogout.html" th:href="@{/login}">LOGIN</a>
+				</li>
+				<li sec:authorize="not (hasAuthority('ADMIN') OR hasAuthority('DEFAULT'))">
+					<a href="askLogout.html" th:href="@{/register}">REGISTER</a>
+				</li>
+				<li sec:authorize="hasAuthority('ADMIN') OR hasAuthority('DEFAULT')">
 					<a href="askLogout.html" th:href="@{/askLogout}">ESCI</a>
 				</li>
 			</ul>
 		</nav>
 	</div>
 
+	<div th:fragment="navbarMini" class="navbar-container flex">
+		<a class="logo" href="index.html" th:href="@{/}">Secondhand</a>
+		<nav>
+			<input type="checkbox" class="navbar-toggle-button" />
+			<div class="navbar-toggle-mobile">
+			</div>
 
+			<ul class="navbar-list flex">
+				<li>
+					<a href="home.html" th:href="@{/home}">HOME</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
 
-
-
-	<footer th:fragment="footer">
-		<div>Contatti: <a href="mailto:*******.*********@gmail.com">*******.*********@gmail.com</a>; 351 *** **** |
-			© 2022 |
-			Secondhand Shop - Tutti i diritti riservati |
-			Sito web realizzato con creatività e passione da ******* *********</div>
-	</footer>
+	<div class="footer-wrapper" th:fragment="footer">
+		<div class="foot">
+			<div>Contatti: <a href="mailto:*******.*********@gmail.com">*******.*********@gmail.com</a>; 351 *** **** |
+				© 2022 |
+				Secondhand - Tutti i diritti riservati |
+				Sito web realizzato con creatività e passione da ******* ********* e *** *****</div>
+		</div>
+	</div>
 </body>
 
 </html>

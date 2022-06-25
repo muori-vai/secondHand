@@ -8,28 +8,41 @@
 	<div th:replace="fragments/common.html :: navbar">
 	</div>
 
-	<form th:action="@{'/admin/categoria/edit/'+${categoria.id}}" method="POST" th:object="${categoria}">
-		<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
-		</div>
-		<div>
-			Nome: <input type="text" th:field="*{nome}" />
-			<div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">
+	<div class="grid-container-form">
+		<div class="grid-form">
+			<div class="flex title">Modifica Categoria
 			</div>
+			<form th:action="@{'/admin/categoria/edit/'+${categoria.id}}" method="POST" th:object="${categoria}">
+				<div th:if="${#fields.hasGlobalErrors()}">
+					<p th:each="err : ${#fields.globalErrors()}" th:text="${err}" th:style="'color:red'">...</p>
+				</div>
+				<table>
+					<tr>
+						<td>Nome:
+						</td>
+						<td><input type="text" th:field="*{nome}" />
+						</td>
+						<td th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" th:style="'color:red'">
+						</td>
+					</tr>
+					<tr>
+						<td>Descrizione:
+						</td>
+						<td><input type="text" th:field="*{descrizione}" />
+						</td>
+						<td th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}" th:style="'color:red'">
+						</td>
+					</tr>
+				</table>
+				<div>
+					<button class="button" type="submit">Conferma</button>
+				</div>
+			</form>
 		</div>
-		<div>
-			Descrizione: <input type="text" th:field="*{descrizione}" />
-			<div th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}">
-			</div>
-		</div>
+	</div>
 
-		<div>
-			<button type="submit">Conferma</button>
-		</div>
-	</form>
-	
-	<a href="index.html" th:href="@{/}">Torna indietro
-	</a>
+	<div th:insert="fragments/common.html :: footer">
+	</div>
 </body>
 
 </html>

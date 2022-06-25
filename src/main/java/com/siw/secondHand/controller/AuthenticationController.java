@@ -22,7 +22,7 @@ public class AuthenticationController {
 
 	@Autowired
 	private CredentialsService credentialsService;
-	
+
 	@Autowired
 	private LuogoService luogoService;
 
@@ -52,25 +52,37 @@ public class AuthenticationController {
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(Model model) {
-		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 		model.addAttribute("nome", credentials.getUser().getNome());
-		//purtroppo senza questo l'autenticazione non va via e quindi il logout non funziona (anche se dovrebbe essere automatico)
+		// purtroppo senza questo l'autenticazione non va via e quindi il logout non
+		// funziona (anche se dovrebbe essere automatico)
 		SecurityContextHolder.getContext().setAuthentication(null);
-		
+
 		return "goodbye";
 	}
-	
-	//pagina per confermare di voler uscire dall'account
+
+	// pagina per confermare di voler uscire dall'account
 	@RequestMapping(value = "/askLogout", method = RequestMethod.GET)
 	public String showLogout(Model model) {
 		return "askLogout.html";
 	}
 
-	//precedentemente /default, pagina dopo un login di successo
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	// default, pagina dopo un login di successo
+	@RequestMapping(value = "/default", method = RequestMethod.GET)
 	public String defaultAfterLogin(Model model) {
-		return "home";
+		return "redirect:/home"; // non so se è più pesante, ma faccio così per evitare di dover usare
+									// prodottoService qui (/home è gestito da ProdottoController)
+	}
+
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public String redirectIndex(Model model) {
+		return "redirect:/home";
+	}
+
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String redirectBlank(Model model) {
+		return "redirect:/home";
 	}
 
 	@RequestMapping(value = { "/register" }, method = RequestMethod.POST)
@@ -78,20 +90,15 @@ public class AuthenticationController {
 			@ModelAttribute("credentials") Credentials credentials, BindingResult credentialsBindingResult,
 			Model model) {
 
-		// validate user and credentials fields
 		this.userValidator.validate(user, userBindingResult);
 		this.credentialsValidator.validate(credentials, credentialsBindingResult);
 
-		// if neither of them had invalid contents, store the User and the Credentials
-		// into the DB
 		if (!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
-			// set the user and store the credentials;
-			// this also stores the User, thanks to Cascade.ALL policy
 			credentials.setUser(user);
 			credentialsService.saveCredentials(credentials);
 			return "registrationSuccessful";
 		}
-		
+
 		model.addAttribute("luogos", this.luogoService.findAll());
 		return "registerUser";
 	}

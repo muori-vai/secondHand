@@ -9,9 +9,37 @@
 	</div>
 
 	<div class="grid-container">
-		<a th:href="@{/prodotto/form}">Inserisci prodotto</a>
+		<div class="grid center">
+			<a class="grid-button" th:href="@{/prodotto/form}">
+			</a>
+			<div class="title3">Inserisci un tuo prodotto
+			</div>
+		</div>
+		<div class="grid center" th:each="prodotto: ${prodottos}">
+			<a class="grid-button" href="prodotto.html" th:href="@{'/prodotto/'+${prodotto.id}}">
+			</a>
+			<div th:if="${prodotto.fotoImagePath}">
+				<img class="product-image" th:src="@{${prodotto.fotoImagePath}}" />
+			</div>
+			<div th:unless="${prodotto.fotoImagePath}">
+				<div class="product-image flex center">Nessuna foto disponibile
+				</div>
+			</div>
+			<div class="title" th:text="${prodotto.nome}">
+			</div>
+			<div th:text="${prodotto.user.nome}+' ('+${prodotto.user.luogo.nome}+')'">
+			</div>
+		</div>
+		<div class="grid center">
+			<a class="grid-button" th:href="@{/prodotto/all}">
+			</a>
+			<div class="title3">Vedi tutti i prodotti
+			</div>
+		</div>
 	</div>
 
+	<div th:insert="fragments/common.html :: footer">
+	</div>
 </body>
 
 </html>

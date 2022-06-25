@@ -5,16 +5,22 @@
 </head>
 
 <body>
-
-	<h1>Stai per uscire dall'account</h1>
-	<div>
-		<a th:href="@{/logout}" th:text="Conferma">Conferma</a>
-		<a href="home.html" th:href="@{/home}">Annulla</a>
+	<div th:replace="fragments/common.html :: navbarMini">
 	</div>
 
-	<footer th:replace="fragments/common.html :: footer">
-	</footer>
+	<div class="grid-container-form">
+		<div class="grid-form">
+			<div class="flex title2">Stai per uscire dall'account
+			</div>
+			<div class="flex title3">
+				<a class="button" th:href="@{/logout}">Conferma</a>
+				<a class="button" href="home.html" th:href="@{/home}">Annulla</a>
+			</div>
+		</div>
+	</div>
 
+	<div th:insert="fragments/common.html :: footer">
+	</div>
 </body>
 
 </html>

@@ -8,10 +8,8 @@
 	<div th:replace="fragments/common.html :: navbar">
 	</div>
 
-
-
 	<div class="flex-column" th:if="${user}">
-		<div class="flex-column bg2">
+		<div class="flex-column bg3">
 			<div class="flex title">
 				<div th:text="${user.nome}+' '+${user.cognome}">
 				</div>
@@ -22,10 +20,21 @@
 			<div th:if="(${user.id}==${currentUserId}) OR (${#authorization.expression('hasAuthority(''ADMIN'')')})">
 				<a th:href="@{'/user/edit/form/'+${user.id}}">Modifica Utente</a>
 			</div>
-
+		</div>
+		<div class="attached-info">
+			<div th:if="(${user.id}==${currentUserId})" class="flex title2">I tuoi prodotti:
+			</div>
+			<div th:unless="(${user.id}==${currentUserId})" class="flex title2">Prodotti di questo Utente:
+			</div>
 		</div>
 
 		<div class="grid-container">
+			<div class="grid center">
+				<a class="grid-button" th:href="@{/prodotto/form}">
+				</a>
+				<div class="title3">Inserisci un nuovo prodotto
+				</div>
+			</div>
 			<div class="grid center" th:each="prodotto: ${user.prodottos}">
 				<a class="grid-button" href="prodotto.html" th:href="@{'/prodotto/'+${prodotto.id}}">
 				</a>
@@ -44,6 +53,9 @@
 
 	<div th:unless="${user}">
 		Questa Categoria non esiste!
+	</div>
+
+	<div th:insert="fragments/common.html :: footer">
 	</div>
 </body>
 
