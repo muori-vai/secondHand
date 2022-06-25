@@ -5,10 +5,9 @@
 </head>
 
 <body>
-
 	<div class="grid-container-form">
 		<div class="grid-form">
-			<div class="flex title">Resgistrazione Utente
+			<div class="flex title">Registrazione Utente
 			</div>
 			<form th:action="@{/register}" method="POST">
 				<table>
@@ -41,16 +40,24 @@
 					</tr>
 					<tr>
 						<td>
-							<fieldset>
-								<div th:if="${#fields.hasErrors('user.luogo')}" th:errors="*{user.luogo}" th:style="'color:red'">
-								</div>
-								<legend>Seleziona Luogo</legend>
-								<div th:each=" luogo: ${luogos}">
+							<legend>Seleziona Luogo</legend>
+							<select th:field="*{user.luogo}" required> <!-- versione Dropdown -->
+								<option value="">---</option>
+								<th:block th:each="luogo: ${luogos}">
+									<option th:text="${luogo.nome}" th:value="${luogo.id}"></option>
+								</th:block>
+							</select>
+							<!--<fieldset> versione con Fieldset
+								<div th:each="luogo: ${luogos}">
 									<input type="radio" id="${luogos}" th:field="*{user.luogo}" name="luogo"
 										th:value="${luogo.id}" />
 									<label for="${luogos}" th:text="${luogo.nome}">nome luogo</label>
 								</div>
-							</fieldset>
+							</fieldset>-->
+						</td>
+						<td>
+							<div th:if="${#fields.hasErrors('user.luogo')}" th:errors="*{user.luogo}">
+							</div>
 						</td>
 					</tr>
 					<tr>

@@ -75,6 +75,16 @@ public class AuthenticationController {
 									// prodottoService qui (/home è gestito da ProdottoController)
 	}
 
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public String redirectIndex(Model model) {
+		return "redirect:/home";
+	}
+
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String redirectBlank(Model model) {
+		return "redirect:/home";
+	}
+
 	@RequestMapping(value = { "/register" }, method = RequestMethod.POST)
 	public String registerUser(@ModelAttribute("user") User user, BindingResult userBindingResult,
 			@ModelAttribute("credentials") Credentials credentials, BindingResult credentialsBindingResult,

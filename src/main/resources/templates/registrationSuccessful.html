@@ -5,12 +5,16 @@
 </head>
 
 <body>
-	<div>
-    	<h4>Registrazione</h4>
-		<h1>Congratulazioni ti sei registrato!</h1>
+	<div class="grid-container-form">
+		<div class="grid-form">
+			<div class="flex title">Registrazione avvenuta con successo!
+			</div>
+			<div>
+				<a href="login.html" th:href="@{/login}">Accedi</a>
+				<a href="home.html" th:href="@{/home}">Home</a>
+			</div>
+		</div>
 	</div>
-	<a href="index.html" th:href="@{/}">Torna indietro
-	</a>
 
 	<div th:insert="fragments/common.html :: footer">
 	</div>

@@ -64,13 +64,19 @@
 				<li>
 					<a href="luogos.html" th:href="@{/luogo/all}">LUOGHI</a>
 				</li>
-				<li>
+				<li sec:authorize="hasAuthority('ADMIN') OR hasAuthority('DEFAULT')">
 					<a href="user.html" th:href="@{/user/profile}">PROFILO</a>
 				</li>
 				<li sec:authorize="hasAuthority('ADMIN')">
 					<a href="users.html" th:href="@{/user/all}">UTENTI</a>
 				</li>
-				<li>
+				<li sec:authorize="not (hasAuthority('ADMIN') OR hasAuthority('DEFAULT'))">
+					<a href="askLogout.html" th:href="@{/login}">LOGIN</a>
+				</li>
+				<li sec:authorize="not (hasAuthority('ADMIN') OR hasAuthority('DEFAULT'))">
+					<a href="askLogout.html" th:href="@{/register}">REGISTER</a>
+				</li>
+				<li sec:authorize="hasAuthority('ADMIN') OR hasAuthority('DEFAULT')">
 					<a href="askLogout.html" th:href="@{/askLogout}">ESCI</a>
 				</li>
 			</ul>

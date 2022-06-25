@@ -411,3 +411,16 @@ body {
 .foot a {
 	color: inherit;
 }
+
+.button {
+	color: var(--color1);
+	outline: 0;
+	border: 0;
+	background-color: transparent;
+	cursor: pointer;
+	padding: .5em .5em .5em 0;
+	font-size: 1em;
+}
+.button:hover {
+	color: var(--color5);
+}
