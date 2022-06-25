@@ -23,6 +23,8 @@ html, body {
 
 a {
 	text-decoration: none;
+	/* filter: brightness(1.4); per vedere meglio i link */
+	/* filter: hue-rotate(45deg); */
 }
 
 body {
@@ -77,7 +79,7 @@ body {
 }
 .flex-column a {
 	font-weight: 800;
-	color: var(--color1);
+	color: var(--color2);
 }
 .flex-column a:hover {
 	color: var(--color5);
@@ -131,7 +133,7 @@ body {
 	border-bottom: .1em solid var(--color3);
 	border-radius: 5px;
 	color: var(--color3);
-	text-shadow: -2px -2px 10px var(--color4);
+	text-shadow: 0 0 5px var(--color4);
 }
 .navbar-toggle-mobile {
 	position: fixed;

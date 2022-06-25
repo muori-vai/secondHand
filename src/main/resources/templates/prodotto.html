@@ -25,7 +25,7 @@
 				<div class="title2" th:text="${prodotto.descrizione}">
 				</div>
 				<div class="title2">Venditore:
-					<a th:href="@{'/user/'+${prodotto.user.id}}" th:text="${prodotto.user.nome}">Utente</a>
+					<a th:href="@{'/user/'+${prodotto.user.id}}" th:text="${prodotto.user.nome+' '+prodotto.user.cognome}">Utente</a>
 					<a th:href="@{'/luogo/'+${prodotto.user.luogo.id}}"
 						th:text="'('+${prodotto.user.luogo.nome}+')'">Luogo</a>
 				</div>
