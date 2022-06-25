@@ -83,6 +83,21 @@
 		</nav>
 	</div>
 
+	<div th:fragment="navbarMini" class="navbar-container flex">
+		<a class="logo" href="index.html" th:href="@{/}">Secondhand</a>
+		<nav>
+			<input type="checkbox" class="navbar-toggle-button" />
+			<div class="navbar-toggle-mobile">
+			</div>
+
+			<ul class="navbar-list flex">
+				<li>
+					<a href="home.html" th:href="@{/home}">HOME</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+
 	<div class="footer-wrapper" th:fragment="footer">
 		<div class="foot">
 			<div>Contatti: <a href="mailto:*******.*********@gmail.com">*******.*********@gmail.com</a>; 351 *** **** |

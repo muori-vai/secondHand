@@ -5,16 +5,16 @@
 </head>
 
 <body>
-	<div th:replace="fragments/common.html :: navbar">
+	<div th:replace="fragments/common.html :: navbarMini">
 	</div>
 
 	<div class="grid-container-form">
 		<div class="grid-form">
-			<div class="flex title">Stai per uscire dall'account
+			<div class="flex title2">Stai per uscire dall'account
 			</div>
-			<div>
-				<a th:href="@{/logout}" th:text="Conferma">Conferma</a>
-				<a href="home.html" th:href="@{/home}">Annulla</a>
+			<div class="flex title3">
+				<a class="button" th:href="@{/logout}">Conferma</a>
+				<a class="button" href="home.html" th:href="@{/home}">Annulla</a>
 			</div>
 		</div>
 	</div>

@@ -8,23 +8,30 @@
 	<div th:replace="fragments/common.html :: navbar">
 	</div>
 	
-	<form th:action="@{'/admin/luogo/edit/'+${luogo.id}}" method="POST" th:object="${luogo}">
-		<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
-		</div>
-		<div>
-			Nome: <input type="text" th:field="*{nome}" />
-			<div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">
+	<div class="grid-container-form">
+		<div class="grid-form">
+			<div class="flex title">Modifica Luogo
 			</div>
+			<form th:action="@{'/admin/luogo/edit/'+${luogo.id}}" method="POST" th:object="${luogo}">
+				<div th:if="${#fields.hasGlobalErrors()}">
+					<p th:each="err : ${#fields.globalErrors()}" th:text="${err}" th:style="'color:red'">...</p>
+				</div>
+				<table>
+					<tr>
+						<td>Nome:
+						</td>
+						<td><input type="text" th:field="*{nome}" />
+						</td>
+						<td th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" th:style="'color:red'">
+						</td>
+					</tr>
+				</table>
+				<div>
+					<button class="button" type="submit">Conferma</button>
+				</div>
+			</form>
 		</div>
-
-		<div>
-			<button type="submit">Conferma</button>
-		</div>
-	</form>
-	
-	<a href="index.html" th:href="@{/}">Torna indietro
-	</a>
+	</div>
 
 	<div th:insert="fragments/common.html :: footer">
 	</div>

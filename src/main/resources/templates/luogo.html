@@ -9,7 +9,7 @@
 	</div>
 
 	<div class="flex-column" th:if="${luogo}">
-		<div class="flex-column bg2">
+		<div class="flex-column bg3">
 			<div class="flex title" th:text="${luogo.nome}">
 			</div>
 			<div sec:authorize="hasAuthority('ADMIN')">
@@ -24,8 +24,8 @@
 			</div>
 		</div>
 		
-		<div class="grid-container">
-			<div class="grid center" th:each="user: ${luogo.users}">
+		<div class="grid-container-fit">
+			<div class="grid-fit center" th:each="user: ${luogo.users}">
 				<a href="user.html" th:href="@{'/user/'+${user.id}}" th:text="${user.nome}+' '+${user.cognome}">
 				</a>
 			</div>

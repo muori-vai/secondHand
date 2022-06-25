@@ -40,8 +40,11 @@
 					</tr>
 					<tr>
 						<td>
-							<legend>Seleziona Luogo</legend>
-							<select th:field="*{user.luogo}" required> <!-- versione Dropdown -->
+							<legend>Luogo</legend>
+						</td>
+						<td>
+							<select th:field="*{user.luogo}" required>
+								<!-- versione Dropdown -->
 								<option value="">---</option>
 								<th:block th:each="luogo: ${luogos}">
 									<option th:text="${luogo.nome}" th:value="${luogo.id}"></option>
@@ -62,7 +65,7 @@
 					</tr>
 					<tr>
 						<td>
-							<button type="submit">Registra</button>
+							<button class="button" type="submit">Registra</button>
 						</td>
 					</tr>
 				</table>
