@@ -5,9 +5,12 @@
 </head>
 
 <body>
+	<div th:replace="fragments/common.html :: navbarMini">
+	</div>
+
 	<div class="grid-container-form">
 		<div class="grid-form">
-			<div class="flex title">Accedi
+			<div class="flex title">Login Utente
 			</div>
 			<form th:action="@{/login}" method="POST">
 				<div th:text="Errore+' '+'nell\'username'+' '+o+' '+nella+' '+password" th:style="'color:red'">

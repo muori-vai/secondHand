@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-   <head>
-      <style>div {
-background-color:lightblue;
-}</style>
-   </head>
-   <h1>Error!</h1>
-   <div class="errorPage">
-      <br />
-      <p>
-         NON AUTORIZZATO
-(
-         <span th:text="${path}" />
-         ).
-      </p>
-      <p th:text="${'Details: ' + message}" />
-      <p th:text="${'Status: ' + status}" />
-   </div>
+
+<head th:replace="fragments/common.html :: header(title='Logout')">
+</head>
+
+<body>
+	<div th:replace="fragments/common.html :: navbarMini">
+	</div>
+
+	<div class="grid-container-form">
+		<div class="grid-form">
+			<div class="flex title2">Ops! Si è verificato un errore con la pagina <span th:text="${path}" />
+			</div>
+			<div>Non sei autorizzato!
+			</div>
+			<div class="flex title2">
+				<a class="button" href="home.html" th:href="@{/home}">Home</a>
+			</div>
+		</div>
+	</div>
+
+	<div th:insert="fragments/common.html :: footer">
+	</div>
+</body>
+
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/common.html :: header(title='Registrazione')">
+<head th:replace="fragments/common.html :: header(title='Logout')">
 </head>
 
 <body>
@@ -10,16 +10,18 @@
 
 	<div class="grid-container-form">
 		<div class="grid-form">
-			<div class="flex title">Registrazione avvenuta con successo!
+			<div class="flex title2">Ops! Si è verificato un errore con la pagina <span th:text="${path}" />
 			</div>
-			<div>
-				<a class="button" href="login.html" th:href="@{/login}">Accedi</a>
+			<div class="flex title2">
 				<a class="button" href="home.html" th:href="@{/home}">Home</a>
 			</div>
+			<p th:text="${'Dettagli: ' + message}" />
+			<p th:text="${'Errore: ' + status}" />
 		</div>
 	</div>
 
 	<div th:insert="fragments/common.html :: footer">
 	</div>
 </body>
+
 </html>
