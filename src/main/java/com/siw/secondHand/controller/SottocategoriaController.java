@@ -2,6 +2,7 @@ package com.siw.secondHand.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -69,7 +70,13 @@ public class SottocategoriaController {
 	@GetMapping("/sottocategoria/{id}")
 	public String getSottocategoria(@PathVariable("id") Long id, Model model) {
 		Sottocategoria sottocategoria = sottocategoriaService.findById(id);
+		
+		List<Prodotto> prodottos = sottocategoria.getProdottos();
+		
+		Collections.reverse(prodottos);
+		
 		model.addAttribute("sottocategoria", sottocategoria);
+		model.addAttribute("prodottos", prodottos);
 		model.addAttribute("luogos", this.luogoService.findAll());
 		
 		return "sottocategoria.html";
@@ -87,6 +94,9 @@ public class SottocategoriaController {
 				prodottos.add(p);
 			}
 		}
+		
+		Collections.reverse(prodottos);
+		
 		model.addAttribute("prodottos", prodottos);
 		model.addAttribute("luogos", this.luogoService.findAll());
 		

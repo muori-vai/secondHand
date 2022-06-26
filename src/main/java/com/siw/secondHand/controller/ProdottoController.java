@@ -74,8 +74,8 @@ public class ProdottoController {
 				// prendo il nome dell'immagine
 				fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
-				// levo gli spazi dal nome dell'immagine (sennò non funziona)
-				fileName = fileName.replaceAll("\\s+", "");
+				// levo gli spazi dal nome dell'immagine (sennò non funziona) "\\s è lo spazio"
+				fileName = fileName.replaceAll("\\s+", ""); //anche senza + va bene
 				// l'attributo foto è solo il nome della foto, non l'immagine stessa
 				prodotto.setFoto(fileName);
 			}
@@ -176,7 +176,7 @@ public class ProdottoController {
 	public String deleteProdotto(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("prodotto", this.prodottoService.findById(id));
 
-		// pagina di conferma di cancellazione
+		// pagina di conferma di cancellazione (non utilizzata)
 		return "prodottoDelete.html";
 	}
 

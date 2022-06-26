@@ -72,7 +72,6 @@ public class CategoriaController {
 		
 		model.addAttribute("prodottos", prodottos);
 		
-		
 		model.addAttribute("luogos", this.luogoService.findAll());
 		
 		return "categoria.html";
@@ -90,6 +89,9 @@ public class CategoriaController {
 				prodottos.add(p);
 			}
 		}
+		
+		Collections.reverse(prodottos);
+		
 		model.addAttribute("prodottos", prodottos);
 		model.addAttribute("luogos", this.luogoService.findAll());
 		
