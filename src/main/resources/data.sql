@@ -1,3 +1,3 @@
-INSERT INTO luogo (nome) VALUES
-  ('Lazio'),
-  ('Sicilia');
+INSERT INTO luogo VALUES
+  (1, 'Lazio'),
+  (2, 'Sicilia');
