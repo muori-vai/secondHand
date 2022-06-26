@@ -84,7 +84,7 @@ public class Prodotto {
 			return null;
 		// si potrebbe fare un return "/generic-foto/prodotto"
 
-		return "/prodotto-foto/" + id + "/" + foto;
+		return "/images/prodotto-foto/" + id + "/" + foto;
 	}
 
 	public Categoria getCategoria() {

@@ -86,7 +86,7 @@ public class ProdottoController {
 																		// risolto tanti problemi)
 
 			if (!multipartFile.isEmpty()) {
-				String uploadDir = "prodotto-foto/" + prodottoSalvato.getId();
+				String uploadDir = "src/main/resources/static/images/prodotto-foto/" + prodottoSalvato.getId();
 
 				// se mettessi lo stesso fileName per tutti (es. "foto"), mi si salverebbe una
 				// sola foto e forse è meglio così
@@ -245,7 +245,7 @@ public class ProdottoController {
 			prodotto.setUser(vecchioProdotto.getUser());
 			Prodotto prodottoSalvato = this.prodottoService.save(prodotto);
 			if (!multipartFile.isEmpty()) {
-				String uploadDir = "prodotto-foto/" + prodottoSalvato.getId();
+				String uploadDir = "src/main/resources/static/images/prodotto-foto/" + prodottoSalvato.getId();
 				FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 			}
 			model.addAttribute("prodotto", prodottoSalvato);
