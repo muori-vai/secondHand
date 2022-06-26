@@ -75,7 +75,7 @@ public class ProdottoController {
 				fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
 				// levo gli spazi dal nome dell'immagine (sennò non funziona) "\\s è lo spazio"
-				fileName = fileName.replaceAll("\\s+", ""); //anche senza + va bene
+				fileName = fileName.replaceAll("\\s+", ""); // anche senza + va bene
 				// l'attributo foto è solo il nome della foto, non l'immagine stessa
 				prodotto.setFoto(fileName);
 			}
@@ -87,10 +87,13 @@ public class ProdottoController {
 
 			if (!multipartFile.isEmpty()) {
 				String uploadDir = "src/main/resources/static/images/prodotto-foto/" + prodottoSalvato.getId();
-
+				String uploadDir2 = "target/classes/static/images/prodotto-foto/" + prodottoSalvato.getId(); 
+				//uploadDir2 serve per evitare di fare refresh (prima funzionava anche senza)
+				
 				// se mettessi lo stesso fileName per tutti (es. "foto"), mi si salverebbe una
 				// sola foto e forse è meglio così
 				FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+				FileUploadUtil.saveFile(uploadDir2, fileName, multipartFile);
 			}
 
 			model.addAttribute("prodotto", prodottoSalvato);
@@ -131,11 +134,11 @@ public class ProdottoController {
 
 		// keyword è una stringa all'interno della barra di ricerca
 		if (keyword != null) {
-			// se ho scritto qualcosa nella barra di ricerca allora cerco i prodotti che hanno
+			// se ho scritto qualcosa nella barra di ricerca allora cerco i prodotti che
+			// hanno
 			// nel nome la parola keyboard
 			model.addAttribute("prodottos", this.prodottoService.findByKeyword(keyword));
-		}
-		else {
+		} else {
 			List<Prodotto> prodottos = prodottoService.findAll();
 			model.addAttribute("prodottos", prodottos);
 		}
