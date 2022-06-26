@@ -46,7 +46,7 @@
 							<legend>Luogo</legend>
 						</td>
 						<td>
-							<select th:field="*{user.luogo}">
+							<select th:field="*{user.luogo}" required>
 								<!-- versione Dropdown -->
 								<option value="">---</option>
 								<th:block th:each="luogo: ${luogos}">

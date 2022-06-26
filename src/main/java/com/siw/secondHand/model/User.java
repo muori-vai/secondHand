@@ -23,7 +23,7 @@ public class User {
 	private String nome;
 	private String cognome;
 
-	//@NotNull
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "luogo_id")
 	private Luogo luogo;

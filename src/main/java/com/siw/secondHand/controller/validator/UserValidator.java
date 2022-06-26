@@ -31,8 +31,8 @@ public class UserValidator implements Validator {
 		else if (cognome.length() < MIN_NAME_LENGTH || cognome.length() > MAX_NAME_LENGTH)
 			errors.rejectValue("cognome", "size");
 
-		/*if (user.getLuogo() == null)
-			errors.rejectValue("luogo", "required");*/
+		if (user.getLuogo() == null)
+			errors.rejectValue("luogo", "required");
 	}
 
 	@Override
