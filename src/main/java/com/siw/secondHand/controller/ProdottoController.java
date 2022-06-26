@@ -31,8 +31,8 @@ import com.siw.secondHand.service.ProdottoService;
 @Controller
 public class ProdottoController {
 
-	public static final int N_OF_PRODUCTS = 3; //articoli da far vedere nella pagina home, potrebbe servire
-	
+	public static final int N_OF_PRODUCTS = 3; // articoli da far vedere nella pagina home, potrebbe servire
+
 	@Autowired
 	private ProdottoService prodottoService;
 
@@ -127,17 +127,25 @@ public class ProdottoController {
 //	}
 
 	@GetMapping("/prodotto/all")
-	public String getProdottos(Model model) {
-		List<Prodotto> prodottos = prodottoService.findAll();
-		model.addAttribute("prodottos", prodottos);
+	public String getProdottos(Model model, @ModelAttribute("keyword") String keyword) {
 
+		// keyword è una stringa all'interno della barra di ricerca
+		if (keyword != null) {
+			// se ho scritto qualcosa nella barra di ricerca allora cerco i prodotti che hanno
+			// nel nome la parola keyboard
+			model.addAttribute("prodottos", this.prodottoService.findByKeyword(keyword));
+		}
+		else {
+			List<Prodotto> prodottos = prodottoService.findAll();
+			model.addAttribute("prodottos", prodottos);
+		}
 		return "prodottos.html";
 	}
-	
+
 	@GetMapping("/home")
 	public String getProdottoHome(Model model) {
 		List<Prodotto> prodottos = prodottoService.findFirstN(N_OF_PRODUCTS);
-		
+
 		model.addAttribute("prodottos", prodottos);
 
 		return "home.html";
@@ -243,7 +251,7 @@ public class ProdottoController {
 			model.addAttribute("prodotto", prodottoSalvato);
 			return "redirect:/prodotto/" + prodottoSalvato.getId();
 		}
-		
+
 		model.addAttribute("categorias", this.categoriaService.findAll());
 
 		return "prodottoEditForm.html";

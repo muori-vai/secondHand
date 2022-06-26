@@ -2,6 +2,7 @@ package com.siw.secondHand.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -64,6 +65,14 @@ public class CategoriaController {
 	public String getCategoria(@PathVariable("id") Long id, Model model) {
 		Categoria categoria = categoriaService.findById(id);
 		model.addAttribute("categoria", categoria);
+		
+		List<Prodotto> prodottos = categoria.getProdottos();
+		
+		Collections.reverse(prodottos); //così appaiono dal più recente al meno recente
+		
+		model.addAttribute("prodottos", prodottos);
+		
+		
 		model.addAttribute("luogos", this.luogoService.findAll());
 		
 		return "categoria.html";
